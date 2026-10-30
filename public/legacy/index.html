@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:">
+<meta charset="UTF-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#171310">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="Tu Tiên 2D Online là game tu tiên online phong cách 2D pixel, MMORPG Việt. Tu luyện, săn yêu thú, khám phá bí cảnh và chơi ngay trên web.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/website/logo-256.webp?v=dda8ed80792e">
+<link rel="canonical" href="https://tutien2d.com/">
+<link rel="icon" href="landing-assets/tu-tien-2d-icon.webp?v=b7496b25a1e5">
+<title>Tu Tiên 2D Online | Game tu tiên 2D pixel Việt</title>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="Tu Tiên 2D Online">
+<meta property="og:title" content="Tu Tiên 2D Online | Game tu tiên 2D pixel Việt">
+<meta property="og:description" content="Game MMORPG 2D pixel Việt: tu luyện, săn yêu thú, khám phá bí cảnh và chơi ngay trên web.">
+<meta property="og:url" content="https://tutien2d.com/">
+<meta property="og:image" content="https://tutien2d.com/landing-assets/gameplay-real/hero-gameplay-poster.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:image:alt" content="Gameplay thật của game Tu Tiên 2D Online phong cách pixel">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tu Tiên 2D Online | Game tu tiên 2D pixel Việt">
+<meta name="twitter:description" content="Game MMORPG 2D pixel Việt: tu luyện, săn yêu thú, khám phá bí cảnh và chơi ngay trên web.">
+<meta name="twitter:image" content="https://tutien2d.com/landing-assets/gameplay-real/hero-gameplay-poster.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Tu Tiên 2D Online",
+  "alternateName": "Tu Tiên 2D",
+  "url": "https://tutien2d.com/",
+  "image": "https://tutien2d.com/landing-assets/gameplay-real/hero-gameplay-poster.jpg",
+  "description": "Game MMORPG 2D pixel Việt lấy cảm hứng từ tu tiên. Người chơi tu luyện, săn yêu thú, khám phá bí cảnh và chiến đấu cùng đạo hữu.",
+  "genre": ["MMORPG", "Pixel art", "Tu tiên"],
+  "gamePlatform": ["Web browser", "Windows", "Android"],
+  "inLanguage": "vi",
+  "author": { "@type": "Organization", "name": "Shopt1" },
+  "publisher": { "@type": "Organization", "name": "Shopt1" }
+}
+</script>
+
+
+
+<link rel="stylesheet" href="styles/main.3de6855bb1e7.css">
+<link rel="stylesheet" href="styles/account.328908bdddb6.css">
+<link rel="stylesheet" href="styles/auth.a81f9f8ee063.css">
+<link rel="stylesheet" href="styles/prologue.6a0b23794923.css">
+<link rel="stylesheet" href="styles/tam_lo.85828abdec59.css">
+<link rel="stylesheet" href="styles/tam_lo_cho.5c569ef7b3b3.css">
+<link rel="stylesheet" href="styles/vet_nut.68fde0a718ca.css">
+<link rel="stylesheet" href="styles/chien_sanh.8cde9689b90b.css">
+<link rel="stylesheet" href="styles/than_binh.32e5cb359351.css">
+<link rel="stylesheet" href="styles/hud_skin.d3f1206cd2d6.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="game-canvas"></canvas>
+  <div id="loading">
+    <div class="load-box">
+      <h1>Tu Tiên 2D</h1>
+      <p id="load-phase">Đang khai mở Tiên Đồ…</p>
+      <div id="load-bar" role="progressbar" aria-labelledby="load-phase">
+        <div id="load-bar-fill"></div>
+      </div>
+      <div class="load-meta">
+        <span id="load-pct">0%</span>
+        <span id="load-detail"></span>
+      </div>
+      <p id="load-tip"></p>
+    </div>
+  </div>
+  <div id="auth-gate" class="hidden">
+    <div id="auth-scenery" aria-hidden="true">
+      <div class="auth-canh"></div>
+      <div class="auth-canh"></div>
+      <div class="auth-suong"></div>
+      <div class="auth-linh-khi"></div>
+    </div>
+    <p id="auth-canh-ten" class="auth-canh-ten" aria-hidden="true"></p>
+    <div class="auth-khung">
+    <div class="auth-box">
+      <span class="auth-goc auth-goc-tl" aria-hidden="true"></span><span class="auth-goc auth-goc-tr" aria-hidden="true"></span><span class="auth-goc auth-goc-bl" aria-hidden="true"></span><span class="auth-goc auth-goc-br" aria-hidden="true"></span>
+      <div class="auth-an" aria-hidden="true">
+        <svg viewBox="-60 -60 120 120" focusable="false">
+          <defs>
+            <radialGradient id="auth-an-loi" r="0.62">
+              <stop offset="0" stop-color="#3d8a6c"/>
+              <stop offset="0.55" stop-color="#15402f"/>
+              <stop offset="1" stop-color="#07130d"/>
+            </radialGradient>
+            <linearGradient id="auth-an-vang" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fff2c4"/>
+              <stop offset="0.5" stop-color="#e4c172"/>
+              <stop offset="1" stop-color="#9a6f2c"/>
+            </linearGradient>
+          </defs>
+          <circle r="57" fill="#0c0a07" stroke="url(#auth-an-vang)" stroke-width="1.8"/>
+          <circle r="52" fill="none" stroke="#e4c172" stroke-opacity=".3" stroke-width=".8"/>
+          <g class="auth-an-quay" fill="#e4c172">
+            <g transform="rotate(0) translate(0 -44)"><rect x="-7" y="-4.5" width="14" height="1.8" rx=".5"/><rect x="-7" y="-0.9" width="14" height="1.8" rx=".5"/><rect x="-7" y="2.7" width="14" height="1.8" rx=".5"/></g>
+            <circle transform="rotate(22.5)" cy="-44" r="1.3"/>
+            <g transform="rotate(45) translate(0 -44)"><rect x="-7" y="-4.5" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="-4.5" width="5.6" height="1.8" rx=".5"/><rect x="-7" y="-0.9" width="14" height="1.8" rx=".5"/><rect x="-7" y="2.7" width="14" height="1.8" rx=".5"/></g>
+            <circle transform="rotate(67.5)" cy="-44" r="1.3"/>
+            <g transform="rotate(90) translate(0 -44)"><rect x="-7" y="-4.5" width="14" height="1.8" rx=".5"/><rect x="-7" y="-0.9" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="-0.9" width="5.6" height="1.8" rx=".5"/><rect x="-7" y="2.7" width="14" height="1.8" rx=".5"/></g>
+            <circle transform="rotate(112.5)" cy="-44" r="1.3"/>
+            <g transform="rotate(135) translate(0 -44)"><rect x="-7" y="-4.5" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="-4.5" width="5.6" height="1.8" rx=".5"/><rect x="-7" y="-0.9" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="-0.9" width="5.6" height="1.8" rx=".5"/><rect x="-7" y="2.7" width="14" height="1.8" rx=".5"/></g>
+            <circle transform="rotate(157.5)" cy="-44" r="1.3"/>
+            <g transform="rotate(180) translate(0 -44)"><rect x="-7" y="-4.5" width="14" height="1.8" rx=".5"/><rect x="-7" y="-0.9" width="14" height="1.8" rx=".5"/><rect x="-7" y="2.7" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="2.7" width="5.6" height="1.8" rx=".5"/></g>
+            <circle transform="rotate(202.5)" cy="-44" r="1.3"/>
+            <g transform="rotate(225) translate(0 -44)"><rect x="-7" y="-4.5" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="-4.5" width="5.6" height="1.8" rx=".5"/><rect x="-7" y="-0.9" width="14" height="1.8" rx=".5"/><rect x="-7" y="2.7" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="2.7" width="5.6" height="1.8" rx=".5"/></g>
+            <circle transform="rotate(247.5)" cy="-44" r="1.3"/>
+            <g transform="rotate(270) translate(0 -44)"><rect x="-7" y="-4.5" width="14" height="1.8" rx=".5"/><rect x="-7" y="-0.9" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="-0.9" width="5.6" height="1.8" rx=".5"/><rect x="-7" y="2.7" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="2.7" width="5.6" height="1.8" rx=".5"/></g>
+            <circle transform="rotate(292.5)" cy="-44" r="1.3"/>
+            <g transform="rotate(315) translate(0 -44)"><rect x="-7" y="-4.5" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="-4.5" width="5.6" height="1.8" rx=".5"/><rect x="-7" y="-0.9" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="-0.9" width="5.6" height="1.8" rx=".5"/><rect x="-7" y="2.7" width="5.6" height="1.8" rx=".5"/><rect x="1.4" y="2.7" width="5.6" height="1.8" rx=".5"/></g>
+            <circle transform="rotate(337.5)" cy="-44" r="1.3"/>
+          </g>
+          <circle r="35" fill="url(#auth-an-loi)" stroke="url(#auth-an-vang)" stroke-width="1.5"/>
+          <circle r="29" fill="none" stroke="#9fe3c3" stroke-opacity=".22" stroke-width=".8"/>
+          <g class="auth-an-kiem" fill="url(#auth-an-vang)">
+            <path d="M0 -28 L3.2 -22 L3.2 8 L-3.2 8 L-3.2 -22 Z"/>
+            <path d="M0 -24 V6" stroke="#fff6da" stroke-opacity=".75" stroke-width=".9" fill="none"/>
+            <path d="M-11 8.5 Q0 13 11 8.5 L11 11.5 Q0 16 -11 11.5 Z"/>
+            <rect x="-1.9" y="13" width="3.8" height="10" rx="1"/>
+            <circle cy="26" r="3"/>
+          </g>
+        </svg>
+      </div>
+      <div id="auth-vao" class="auth-mat auth-mat-vao">
+        <h1 id="auth-title">Tu Tiên 2D Online</h1>
+        <p class="auth-sub">Tiên lộ mở ra, đạo hữu cùng hành.</p>
+        <div class="auth-hoa-van" aria-hidden="true"><i></i></div>
+        <div class="auth-cot">
+          <div class="auth-field">
+            <label class="auth-nhan" for="auth-name">Đạo hiệu</label>
+            <div class="auth-o">
+              <svg class="auth-o-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4.2 4.4-6 8-6s6.8 1.8 8 6"/></svg>
+              <input id="auth-name" type="text" autocomplete="username"
+                     maxlength="64" placeholder="Nhập đạo hiệu" spellcheck="false">
+            </div>
+          </div>
+          <div class="auth-field">
+            <div class="auth-nhan-hang">
+              <label class="auth-nhan" for="auth-pass">Mật khẩu</label>
+              <button id="auth-quen-mo" class="auth-quen-mo" type="button">Quên mật khẩu?</button>
+            </div>
+            <div class="auth-o auth-o-mat-khau">
+              <svg class="auth-o-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg>
+              <input id="auth-pass" type="password" autocomplete="current-password"
+                     maxlength="72" placeholder="Tối thiểu 6 ký tự">
+              <button id="auth-xem-pass" class="auth-xem" type="button"
+                      aria-label="Hiện mật khẩu" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="mo" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle class="mo" cx="12" cy="12" r="3"/><path class="gach" d="M4 4l16 16"/></svg></button>
+            </div>
+          </div>
+          <div id="auth-captcha" class="auth-field auth-captcha hidden">
+            <label class="auth-nhan" for="auth-captcha-ma">Mã bảo mật</label>
+            <div class="auth-captcha-row">
+              <input id="auth-captcha-ma" type="text" autocomplete="off" autocapitalize="characters"
+                     maxlength="8" placeholder="Mã bảo mật" spellcheck="false">
+              <button id="auth-captcha-anh" class="auth-captcha-anh" type="button"
+                      title="Bấm để đổi mã khác" aria-label="Đổi mã bảo mật khác">
+                <img id="auth-captcha-img" alt="Mã bảo mật" width="150" height="50" draggable="false">
+              </button>
+            </div>
+          </div>
+          <label class="auth-terms-check">
+            <input id="auth-terms" type="checkbox">
+            <span>Tôi đồng ý với <a href="terms.html" target="_blank" rel="noopener" data-legal>Điều khoản sử dụng</a>, <a href="privacy.html" target="_blank" rel="noopener" data-legal>Chính sách quyền riêng tư</a> và Quy tắc cộng đồng: không khoan dung nội dung phản cảm, quấy rối hoặc lạm dụng.</span>
+          </label>
+          <details class="auth-terms-details">
+            <summary>Đọc nhanh quy tắc cộng đồng</summary>
+            <p>Không đăng nội dung thù ghét, tình dục, đe doạ, lừa đảo hoặc vi phạm pháp luật. Bạn có thể báo cáo tin nhắn và chặn người chơi; nội dung bị báo cáo sẽ được nhà phát triển xem xét và xử lý trong vòng 24 giờ.</p>
+          </details>
+        </div>
+        <div class="auth-cot">
+          <p id="auth-msg" class="auth-msg" aria-live="polite"></p>
+          <div class="auth-actions" role="group" aria-label="Chọn cách vào game">
+            <button id="auth-submit" class="auth-btn is-active" type="button">Đăng nhập</button>
+            <button id="auth-toggle" class="auth-btn" type="button">Đăng ký</button>
+          </div>
+          <div class="auth-hoac" aria-hidden="true"><span>hoặc</span></div>
+          <button id="auth-guest" class="auth-guest" type="button">
+            Chơi ngay không cần tài khoản
+          </button>
+          <p class="auth-guest-note">Tài khoản khách nhớ trên máy này · đăng ký để giữ nhân vật lâu dài</p>
+        </div>
+      </div>
+      <div id="auth-quen" class="auth-mat auth-mat-quen hidden">
+        <button id="auth-quen-ve" class="auth-ve" type="button" aria-label="Quay lại đăng nhập">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Quay lại</span>
+        </button>
+        <h2 class="auth-quen-tieu">Tìm Lại Mật Khẩu</h2>
+        <p class="auth-sub">Mã 6 số gửi về email đã liên kết với đạo hiệu.</p>
+        <div class="auth-hoa-van" aria-hidden="true"><i></i></div>
+        <div id="auth-quen-b1">
+          <div class="auth-field">
+            <label class="auth-nhan" for="auth-quen-ten">Đạo hiệu</label>
+            <div class="auth-o">
+              <svg class="auth-o-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4.2 4.4-6 8-6s6.8 1.8 8 6"/></svg>
+              <input id="auth-quen-ten" type="text" autocomplete="username"
+                     maxlength="12" placeholder="Đạo hiệu đăng nhập" spellcheck="false">
+            </div>
+          </div>
+          <div id="auth-quen-captcha" class="auth-quen-captcha"></div>
+          <button id="auth-quen-gui" class="auth-btn is-active auth-btn-rong" type="button">Gửi mã</button>
+        </div>
+        <div id="auth-quen-b2" class="hidden">
+          <div class="auth-field">
+            <label class="auth-nhan" for="auth-quen-ma">Mã 6 số</label>
+            <div class="auth-o">
+              <svg class="auth-o-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></svg>
+              <input id="auth-quen-ma" type="text" inputmode="numeric" autocomplete="one-time-code"
+                     maxlength="6" placeholder="Mã trong email" spellcheck="false">
+            </div>
+          </div>
+          <div class="auth-field">
+            <label class="auth-nhan" for="auth-quen-pass">Mật khẩu mới</label>
+            <div class="auth-o">
+              <svg class="auth-o-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2.5 2.5M14 9l2 2"/></svg>
+              <input id="auth-quen-pass" type="password" autocomplete="new-password"
+                     maxlength="72" placeholder="Tối thiểu 6 ký tự">
+            </div>
+          </div>
+          <button id="auth-quen-dat" class="auth-btn is-active auth-btn-rong" type="button">Đặt mật khẩu</button>
+          <button id="auth-quen-lai" class="auth-lien" type="button">Gửi lại mã</button>
+        </div>
+        <p id="auth-quen-msg" class="auth-msg" aria-live="polite"></p>
+        <a id="auth-quen-trang" class="auth-lien hidden" href="https://tutien2d.online/quen-mat-khau.html"
+           target="_blank" rel="noopener">Mở trang tìm lại mật khẩu</a>
+      </div>
+    </div>
+    <div class="auth-duoi">
+      <nav id="auth-tai" class="auth-tai" aria-label="Tải game về máy">
+        <a id="tai-game-hub" class="auth-tai-nut" href="https://thienthuonline.vn/tai-game" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
+          <span>Tải game</span>
+        </a>
+      </nav>
+      <nav class="auth-community" aria-label="Cộng đồng Tu Tiên 2D">
+        <a class="auth-tai-nut auth-zalo-nut"
+           href="https://zalo.me/g/ktb5khygwsop0fwrmp96"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Tham gia Box Zalo (mở tab mới)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v13H9l-5 3V4zM8 9h8M8 13h5"/></svg>
+          <span>Box Zalo</span>
+        </a>
+      </nav>
+    </div>
+    <nav class="auth-legal" aria-label="Pháp lý và hỗ trợ">
+      <a href="privacy.html" target="_blank" rel="noopener" data-legal>Quyền riêng tư</a>
+      <a href="terms.html" target="_blank" rel="noopener" data-legal>Điều khoản</a>
+      <a href="support.html" target="_blank" rel="noopener" data-legal>Hỗ trợ</a>
+    </nav>
+    </div>
+  </div>
+  <div id="hud" class="hidden">
+    <div id="tay-trai" class="tay-trai">
+      <nav id="tt-cot" class="tt-cot" aria-label="Cột lệnh"></nav>
+      <button id="tt-mo" class="tt-mo" type="button" aria-controls="tt-cot"
+              aria-expanded="false" aria-label="Mở cột lệnh"><span aria-hidden="true"></span></button>
+    </div>
+    <div id="hud-left" class="panel" role="button" tabindex="0"
+         aria-label="Mở Hành Trang" aria-controls="bag"
+         aria-haspopup="dialog" aria-expanded="false"
+         title="Mở Hành Trang (B)">
+      <div class="hud-id">
+        <div class="face-frame">
+          <canvas id="hud-face" width="96" height="96"></canvas>
+        </div>
+        <div class="hud-info">
+          <div id="hud-name">Đạo hữu</div>
+          <div id="hud-realm">Phàm Nhân</div>
+        </div>
+        <div id="hud-wallet" class="hud-wallet" aria-label="Linh Thạch hiện có: 0"
+             title="Linh Thạch hiện có">
+          <span class="stone-mark" aria-hidden="true">◈</span>
+          <strong id="hud-stones">0</strong>
+        </div>
+      </div>
+      <div class="bar resource-bar" id="row-hp">
+        <i id="bar-hp" class="fill hp"></i><span class="resource-icon hp-icon" aria-hidden="true">♥</span>
+        <span class="bar-label">Khí Huyết</span><strong id="value-hp" class="bar-value">100 / 100</strong>
+      </div>
+      <div class="bar resource-bar" id="row-mp">
+        <i id="bar-mp" class="fill mp"></i><span class="resource-icon mp-icon" aria-hidden="true">✦</span>
+        <span id="label-mp" class="bar-label">Linh Lực</span><strong id="value-mp" class="bar-value">0 / 0</strong>
+      </div>
+      <div class="bar resource-bar" id="row-sp">
+        <i id="bar-sp" class="fill sp"></i><span class="resource-icon sp-icon" aria-hidden="true">◉</span>
+        <span class="bar-label">Thần Thức</span><strong id="value-sp" class="bar-value">20 / 20</strong>
+      </div>
+      <div class="bar resource-bar" id="row-bp">
+        <i id="bar-bp" class="fill bp"></i><span class="resource-icon bp-icon" aria-hidden="true">◆</span>
+        <span class="bar-label">Giáp</span><strong id="value-bp" class="bar-value">40 / 40</strong>
+      </div>
+      <div class="bar thin" id="row-xp"><i id="bar-xp" class="fill xp"></i><span id="xp-label">Đạo Hạnh</span></div>
+    </div>
+    <div id="hud-btns" class="hud-btns">
+      <button id="btn-su-kien" type="button" title="Sự Kiện" aria-label="Mở bảng Sự Kiện"
+              aria-haspopup="dialog">
+        <img class="hud-icon" src="assets/ui/hud-icons/icon-hud-event.png?v=ddd58e1d7332" alt="">
+      </button>
+      <button id="btn-fishing-stop" class="hidden" type="button"
+              title="Dừng tự động câu cá" aria-label="Dừng tự động câu cá">
+        Dừng câu
+      </button>
+      <button id="btn-chat-compose" type="button" title="Chat nhanh (Enter)"
+              aria-label="Mở thanh chat" aria-controls="quick-chat"
+              aria-expanded="false">Chat</button>
+      <button id="btn-chat" title="Thư" aria-label="Mở khung Thư"
+              aria-controls="thu" aria-haspopup="dialog" aria-expanded="false">
+        <img class="hud-icon" src="assets/ui/hud-icons/icon-hud-mail.webp?v=5ecca4436647" alt="">
+      </button>
+      <button id="btn-sect" title="Tông Môn" aria-label="Mở Tông Môn">
+        <img class="hud-icon" src="assets/ui/hud-icons/icon-hud-sect.png?v=9e978bfddcf1" alt="">
+      </button>
+      <button id="btn-settings" type="button" title="Cài Đặt · Settings"
+              aria-label="Cài Đặt và tài khoản (Settings &amp; Account)">
+        <img class="hud-icon" src="assets/ui/hud-icons/icon-hud-gear.png?v=0bf01e21c9a0" alt="">
+      </button>
+    </div>
+    <div id="hud-journal">
+      <div id="hud-buffs" class="hud-buffs hidden" aria-live="off"></div>
+      <div id="quest-tracker" class="panel hidden">
+        <div class="quest-head">
+          <button id="quest-open" type="button" title="Xem chi tiết việc đang làm">
+            <span class="q-stage" id="quest-stage">
+              <span class="q-stage-full" id="quest-stage-full">Giai đoạn 1</span>
+              <span class="q-stage-short" id="quest-stage-short">Giai đoạn 1</span>
+            </span>
+            <span class="q-more" aria-hidden="true">☰</span>
+          </button>
+          <button id="quest-collapse" type="button" class="q-collapse"
+                  aria-controls="quest-objectives" aria-expanded="true"
+                  aria-label="Thu gọn nhiệm vụ" title="Thu gọn nhiệm vụ">▴</button>
+        </div>
+        <ul id="quest-objectives"></ul>
+        <div class="q-hint" id="quest-hint" hidden></div>
+      </div>
+    </div>
+    <div id="hud-right" class="panel">
+      <canvas id="minimap" width="180" height="135"
+              aria-label="Chạm để nhân vật tự di chuyển tới vị trí trên bản đồ"
+              title="Chạm để nhân vật tự di chuyển tới vị trí trên bản đồ"></canvas>
+      <div id="hud-map">Chân Núi Tản Viên</div>
+      <div id="hud-weather" class="hidden" role="status" aria-live="off"></div>
+    </div>
+    <section id="party-hud" class="panel hidden" aria-label="Tổ đội">
+      <header class="party-head">
+        <span>Tổ Đội</span>
+        <button id="party-fold" class="party-fold" type="button" aria-expanded="true"
+                aria-controls="party-members" aria-label="Thu gọn tổ đội"
+                title="Thu gọn tổ đội"><i aria-hidden="true"></i><b id="party-count">0/6</b></button>
+        <button id="party-chat" class="party-manage party-chat" type="button"
+                aria-label="Chat tổ đội" title="Chat tổ đội"><svg viewBox="0 0 12 12" width="12" height="12"
+                aria-hidden="true"><path d="M1.5 2h9a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5H5l-2.5 2V8h-1a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 .5-.5z"
+                fill="currentColor"/></svg></button>
+        <button id="party-manage" class="party-manage" type="button"
+                aria-label="Quản lý tổ đội" title="Rời đội · nhường · mời rời">☰</button>
+      </header>
+      <div id="party-members"></div>
+      <div id="party-say" class="party-say hidden" role="status" aria-live="polite"></div>
+    </section>
+    <div id="hud-target" class="panel hidden">
+      <div class="t-head">
+        <span id="target-name">Bọ Ngựa</span>
+        <span id="target-level">CG.1</span>
+      </div>
+      <div class="bar"><i id="bar-target-hp" class="fill hp"></i><span id="target-hp">2 / 2</span></div>
+    </div>
+    <section id="invite-hud" class="panel hidden" role="dialog"
+             aria-live="assertive" aria-label="Lời mời đang chờ" aria-hidden="true">
+      <div class="invite-kicker">LỜI MỜI</div>
+      <div class="invite-head">
+        <strong id="invite-title">Lời mời</strong>
+        <span id="invite-from"></span>
+      </div>
+      <p id="invite-text"></p>
+      <div id="invite-actions" class="invite-actions">
+        <button id="invite-accept" class="invite-action accept" type="button">Đồng ý</button>
+        <button id="invite-decline" class="invite-action decline" type="button">Không</button>
+      </div>
+    </section>
+    <div id="ritual-caption" class="hidden"></div>
+    <div id="world-chat-banner" class="world-chat-banner hidden" role="status"
+         aria-live="polite" aria-label="Chat Thế Giới">
+      <span id="world-chat-line"></span>
+    </div>
+    <div id="quick-chat" class="panel quick-chat hidden" role="group"
+         aria-label="Thanh chat">
+      <div class="quick-chat-channels" role="tablist" aria-label="Kênh chat">
+        <button id="quick-chat-map" class="quick-chat-channel on" type="button"
+                role="tab" aria-selected="true">Bản Đồ</button>
+        <button id="quick-chat-world" class="quick-chat-channel" type="button"
+                role="tab" aria-selected="false">Thế Giới</button>
+        <button id="quick-chat-party" class="quick-chat-channel hidden" type="button"
+                role="tab" aria-selected="false">Tổ Đội</button>
+      </div>
+      <input id="quick-chat-input" type="text" maxlength="200" autocomplete="off"
+             spellcheck="false" placeholder="Nhập lời muốn nói…"
+             aria-label="Lời muốn nói">
+      <button id="quick-chat-send" class="quick-chat-action" type="button">Gửi</button>
+      <button id="quick-chat-close" class="quick-chat-action secondary" type="button">Đóng</button>
+    </div>
+    <div id="hud-foot">
+      <div id="game-clock" title="Giờ máy chủ (UTC+7)">--:--:--</div>
+      <div id="hud-where"><span id="hud-pos">( 0 , 0 )</span> · <span id="hud-fps">60 FPS</span></div>
+    </div>
+    <div id="hud-keys" class="panel dim">
+      <b>WASD</b>/<b>↑↓←→</b> di chuyển · <b>Space</b> xuất chiêu ·
+      <b>E</b> quan sát · <b>Tab</b> đổi mục tiêu · <b>Q</b> đả tọa · <b>1–8</b> tung chiêu · <b>F</b> ngự kiếm · <b>B</b> túi đồ · <b>N</b> kỹ năng · <b>H J K L</b> vòng chiêu · <b>P</b> tỉ thí · <b>Shift</b> bật/tắt chạy · <b>T</b> tự động · <b>Enter</b> nói chuyện · <b>Esc</b> menu
+    </div>
+    <section id="thu" class="panel hidden" role="dialog" aria-label="Khung Thư">
+      <header class="thu-head">
+        <span class="thu-nhan">✉</span>
+        <div class="thu-danh">
+          <span id="thu-title" class="thu-title">Bản Đồ</span>
+          <span id="thu-note" class="thu-note"></span>
+        </div>
+        <button id="thu-chan" class="thu-close thu-chan hidden" type="button"
+                aria-label="Danh sách đã chặn">⊘</button>
+        <button id="thu-close" class="thu-close" type="button"
+                aria-label="Đóng khung Thư">✕</button>
+      </header>
+      <div id="thu-chan-list" class="thu-chan-list hidden" aria-label="Người đã chặn"></div>
+      <div class="thu-than">
+        <nav id="thu-rail" class="thu-rail" aria-label="Danh sách mục"></nav>
+        <div class="thu-chinh">
+          <div id="thu-log" class="thu-log" role="log" aria-live="polite"></div>
+          <div id="thu-act" class="thu-act hidden"></div>
+          <div class="thu-row">
+            <input id="thu-input" type="text" maxlength="200" autocomplete="off"
+                   spellcheck="false" placeholder="Nói với đồng đạo quanh đây…"
+                   aria-label="Lời muốn nói">
+            <button id="thu-send" class="thu-send" type="button" aria-label="Gửi">Gửi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="hotbar" class="hotbar hidden" role="group" aria-label="Thanh chiêu">
+      <button id="hb-thu" class="hb-thu" type="button" aria-expanded="true"
+              aria-label="Ẩn thanh chiêu" title="Ẩn / hiện thanh chiêu">▾</button>
+    </div>
+    <div id="phu-bar" class="phu-bar hidden" role="group" aria-label="Thanh phù chú"></div>
+  </div>
+  <aside id="skill-test-panel" class="hidden" aria-label="Bảng thử tám bí tịch">
+    <div class="skill-test-title">LOCAL · TEST 8 BÍ TỊCH</div>
+    <div class="skill-test-buttons">
+      <button type="button" data-test-skill="hoa_cau"><kbd>3</kbd> Hỏa Cầu</button>
+      <button type="button" data-test-skill="phong_nhan"><kbd>4</kbd> Phong Nhẫn</button>
+      <button type="button" data-test-skill="phong_doc"><kbd>9</kbd> Cơn Lốc Phong Độc</button>
+      <button type="button" data-test-skill="bang_thau"><kbd>5</kbd> Băng Châm</button>
+      <button type="button" data-test-skill="dia_thich"><kbd>6</kbd> Địa Thích</button>
+      <button type="button" data-test-skill="ma_hon_phe"><kbd>0</kbd> Ma Hồn Phệ</button>
+      <button type="button" data-test-skill="nguyet_quang"><kbd>-</kbd> Nguyệt Quang</button>
+      <button type="button" data-test-skill="kim_quang_cu_kiem"><kbd>=</kbd> Cự Kiếm</button>
+      <button type="button" data-test-skill="ngu_sac_than_chuong"><kbd>9</kbd> Thần Chưởng</button>
+      <button type="button" data-test-skill="huyet_buc_chuong"><kbd>[</kbd> Huyết Bức</button>
+      <button type="button" data-test-skill="huyet_liem_tram"><kbd>]</kbd> Liêm Trảm</button>
+      <button type="button" data-test-skill="tu_anh_phuoc_tien"><kbd>\</kbd> Tứ Ảnh</button>
+      <button type="button" data-test-skill="xich_ma_hoa_than"><kbd>'</kbd> Xích Ma</button>
+      <button type="button" data-test-skill="kim_cuong_hoa_than"><kbd>;</kbd> Kim Cương</button>
+      <button type="button" data-test-skill="cuu_u_ma_trao"><kbd>,</kbd> Ma Trảo</button>
+      <button type="button" data-test-skill="phi_long_tai_thien"><kbd>.</kbd> Phi Long</button>
+      <button type="button" data-test-skill="hoanh_tao_mac_ngan"><kbd>/</kbd> Hoành Tảo</button>
+      <button type="button" data-test-skill="son_ha_nhap_hoa"><kbd>`</kbd> Sơn Hà</button>
+      <button type="button" data-test-skill="tu_van_cuong_phong">Cuồng Phong</button>
+      <button type="button" data-test-skill="tu_van_ma_vuc">Ma Vực</button>
+      <button type="button" data-test-skill="cuu_u_hac_trao">Hắc Trảo</button>
+      <button type="button" data-test-skill="hac_vu_xuyen_tam">Xuyên Tâm</button>
+      <button type="button" data-test-skill="thanh_long_ngam">Long Ngâm</button>
+      <button type="button" data-test-skill="cuu_thien_lien_am">Liên Âm</button>
+      <button type="button" data-test-skill="bich_nguc_giang_dao">Giáng Đao</button>
+      <button type="button" data-test-skill="ngoc_luu_chan_am">Chấn Âm</button>
+      <button type="button" data-test-skill="huyet_nguyet_am_thuc">Huyết Nguyệt</button>
+      <button type="button" data-test-skill="am_huyet_ma_chuong">Ma Chưởng</button>
+      <button type="button" data-test-skill="ngu_hoa_thuong_vu">Hoả Vũ</button>
+      <button type="button" data-test-skill="tieu_canh_kiem_tran">Canh Kiếm</button>
+      <button type="button" data-test-skill="huyet_nguyet_luan_liem">Luân Liêm</button>
+      <button type="button" data-test-skill="anh_dao_phong_tran">Anh Đào</button>
+      <button type="button" data-test-passive="kim_quang_chao"><kbd>7</kbd> <span data-passive-label>Kim Quang</span></button>
+      <button type="button" data-test-passive="moc_xuan"><kbd>8</kbd> <span data-passive-label>Mộc Xuân</span></button>
+    </div>
+    <small>0, 3–6, 9: công kích · 7–8: bị động khi mất Khí Huyết · Không hao Linh Lực · Có hồi chiêu</small>
+  </aside>
+  <div id="touch-ui" class="hidden">
+    <div id="dpad" aria-label="Điều khiển di chuyển">
+      <button class="dpad-btn up" type="button" data-dx="0" data-dy="-1" aria-label="Đi lên">▲</button>
+      <button class="dpad-btn left" type="button" data-dx="-1" data-dy="0" aria-label="Đi sang trái">◀</button>
+      <button id="btn-run" class="dpad-run" type="button" aria-label="Bật tắt chạy">Chạy</button>
+      <button class="dpad-btn right" type="button" data-dx="1" data-dy="0" aria-label="Đi sang phải">▶</button>
+      <button class="dpad-btn down" type="button" data-dx="0" data-dy="1" aria-label="Đi xuống">▼</button>
+    </div>
+    <div id="joystick" class="hidden" aria-label="Joystick di chuyển">
+      <div class="joystick-ring" aria-hidden="true"></div>
+      <div id="joystick-thumb" class="joystick-thumb" aria-hidden="true"></div>
+      <button id="joystick-run" class="joystick-run" type="button"
+              aria-label="Bật tắt chạy">Chạy</button>
+    </div>
+    <div id="touch-buttons">
+      <button id="btn-target" class="tbtn utility target-touch" type="button" aria-label="Đổi mục tiêu">
+        <img class="hud-icon" src="assets/ui/hud-icons/icon-hud-doi.png?v=0583b2848be1" alt="">
+        <span class="skill-name">Đổi</span>
+      </button>
+      <button id="btn-fly" class="tbtn utility fly-touch" type="button" aria-label="Ngự kiếm">
+        <img class="hud-icon" src="assets/ui/hud-icons/icon-hud-phi-hanh.png?v=3eb1daf05dec" alt="">
+        <span class="skill-name">Phi Hành</span>
+      </button>
+      <button id="btn-auto-touch" class="tbtn utility auto-touch" type="button"
+              aria-label="Bật tắt Tự Động" aria-pressed="false">
+        <img class="hud-icon" src="assets/ui/hud-icons/icon-hud-tu-dong.png?v=f7f97be625dc" alt="">
+        <span class="skill-name">Auto</span>
+      </button>
+      <button id="btn-fishing-stop-touch" class="tbtn utility fishing-stop-touch hidden"
+              type="button" aria-label="Dừng tự động câu cá" aria-pressed="false">
+        <span class="skill-glyph">×</span>
+        <span class="skill-name">Dừng câu</span>
+      </button>
+      <button id="btn-meditate-touch" class="tbtn utility meditate-touch" type="button"
+              aria-label="Tọa thiền" aria-pressed="false">
+        <img class="hud-icon" src="assets/ui/hud-icons/icon-hud-toa.png?v=b7c0ecbc831e" alt="">
+        <span class="skill-name">Tọa</span>
+      </button>
+      <button id="qs-0" class="tbtn skill qs-o qs-pos-0 trong dim" type="button" data-qs="0" aria-label="Phím H: ô trống">
+        <span class="skill-key">H</span>
+        <img class="qs-img hidden" alt="" draggable="false">
+        <span class="skill-glyph">+</span>
+        <b class="skill-count hidden"></b>
+        <span class="skill-name">Trống</span>
+        <strong class="skill-cooldown hidden"></strong>
+      </button>
+      <button id="qs-1" class="tbtn skill qs-o qs-pos-1 trong dim" type="button" data-qs="1" aria-label="Phím J: ô trống">
+        <span class="skill-key">J</span>
+        <img class="qs-img hidden" alt="" draggable="false">
+        <span class="skill-glyph">+</span>
+        <b class="skill-count hidden"></b>
+        <span class="skill-name">Trống</span>
+        <strong class="skill-cooldown hidden"></strong>
+      </button>
+      <button id="qs-2" class="tbtn skill qs-o qs-pos-2 trong dim" type="button" data-qs="2" aria-label="Phím K: ô trống">
+        <span class="skill-key">K</span>
+        <img class="qs-img hidden" alt="" draggable="false">
+        <span class="skill-glyph">+</span>
+        <b class="skill-count hidden"></b>
+        <span class="skill-name">Trống</span>
+        <strong class="skill-cooldown hidden"></strong>
+      </button>
+      <button id="qs-3" class="tbtn skill qs-o qs-pos-3 trong dim" type="button" data-qs="3" aria-label="Phím L: ô trống">
+        <span class="skill-key">L</span>
+        <img class="qs-img hidden" alt="" draggable="false">
+        <span class="skill-glyph">+</span>
+        <b class="skill-count hidden"></b>
+        <span class="skill-name">Trống</span>
+        <strong class="skill-cooldown hidden"></strong>
+      </button>
+      <button id="qs-edit" class="qs-edit" type="button" aria-label="Sửa vòng phím H J K L">✎</button>
+      <button id="btn-attack" class="tbtn attack-touch" type="button" aria-label="Đánh thường">
+        <span class="skill-key">SPC</span><span class="attack-slash" aria-hidden="true"></span>
+        <span class="skill-name">Công Thường</span>
+      </button>
+    </div>
+    <div id="qs-picker" class="qs-picker hidden" role="dialog" aria-label="Chọn thứ gán vào phím"></div>
+  </div>
+  <div id="mate-menu" class="hidden" role="dialog" aria-label="Việc làm với đạo hữu">
+    <button id="mate-close" class="mate-x" type="button" aria-label="Đóng">✕</button>
+    <div class="mate-head">
+      <span id="mate-name">đạo hữu</span>
+      <span id="mate-sub" class="mate-sub"></span>
+    </div>
+    <div id="mate-acts"></div>
+  </div>
+  <aside id="dh-toast" class="dh-toast hidden" aria-live="polite" aria-label="Đại Hội Tu Tiên">
+    <button id="dh-toast-pill" class="dh-toast-pill hidden" type="button" aria-label="Mở thông báo Đại Hội">
+      <span class="dh-toast-icon" aria-hidden="true">⚔</span>
+      <b id="dh-toast-pill-clock">--:--</b>
+    </button>
+    <div id="dh-toast-card" class="dh-toast-card">
+      <header class="dh-toast-head">
+        <div class="dh-toast-title">
+          <strong id="dh-toast-label">Chốt sổ sau</strong>
+          <small id="dh-toast-sub">Đại Hội Tu Tiên</small>
+        </div>
+        <b id="dh-toast-clock">--:--</b>
+        <button id="dh-toast-min" class="dh-toast-min" type="button" aria-label="Thu gọn" title="Thu gọn">–</button>
+      </header>
+      <p id="dh-toast-msg" class="dh-toast-msg hidden"></p>
+      <div class="dh-toast-actions">
+        <button id="dh-toast-act" class="dh-toast-btn main" type="button">Ghi Danh</button>
+        <button id="dh-toast-more" class="dh-toast-btn" type="button">Chi tiết</button>
+      </div>
+    </div>
+  </aside>
+  <div id="inspect" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="inspect-name">
+    <div class="scroll-panel narrow inspect-panel">
+      <header class="inspect-head">
+        <div class="inspect-id">
+          <span class="sheet-kicker">XEM THÔNG TIN</span>
+          <h2 id="inspect-name">Đạo hữu</h2>
+          <span id="inspect-realm" class="inspect-realm"></span>
+        </div>
+        <button id="inspect-close" class="inspect-x" type="button" aria-label="Đóng">✕</button>
+      </header>
+      <div id="inspect-sect" class="inspect-sect none" aria-label="Tông môn"></div>
+      <section class="inspect-paper" aria-label="Trang bị">
+        <div class="equipment-board inspect-board">
+          <canvas id="inspect-avatar" width="128" height="136" aria-label="Hình nhân vật"></canvas>
+          <div id="inspect-slots"></div>
+        </div>
+        <p id="inspect-item" class="inspect-item moi" aria-live="polite"></p>
+      </section>
+      <section class="inspect-info" aria-label="Chỉ số">
+        <h3 class="inspect-cap">Trang bị cộng thêm</h3>
+        <div id="inspect-summary" class="equipment-summary"></div>
+        <h3 class="inspect-cap">Chỉ số</h3>
+        <div id="inspect-stats" class="inspect-stats"></div>
+      </section>
+    </div>
+  </div>
+  <div id="daihoi" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dh-title">
+    <div class="scroll-panel narrow daihoi-panel">
+      <header class="dh-head">
+        <div>
+          <span class="sheet-kicker">ĐÀI LUẬN VÕ</span>
+          <h2 id="dh-title">Đại Hội Tu Tiên</h2>
+        </div>
+        <strong id="dh-clock" class="dh-clock">--:--</strong>
+      </header>
+      <nav id="dh-tabs" class="dh-tabs" aria-label="Mục Đại Hội">
+        <button type="button" data-tab="ky" class="on" aria-pressed="true">Ghi Danh</button>
+        <button type="button" data-tab="kq" aria-pressed="false">Kết Quả</button>
+        <button type="button" data-tab="diem" aria-pressed="false">Đổi Điểm</button>
+      </nav>
+      <section id="dh-tab-ky">
+        <div id="dh-phase" class="dh-phase">Chưa mở sổ</div>
+        <div id="dh-info" class="dh-info"></div>
+        <p id="dh-msg" class="dh-msg hidden"></p>
+        <button id="dh-act" class="btn-main" type="button">Ghi Danh Dự Hội</button>
+      </section>
+      <section id="dh-tab-kq" class="hidden"><div id="dh-kq" class="dh-kq"></div></section>
+      <section id="dh-tab-diem" class="hidden"><div id="dh-diem" class="dh-diem"></div></section>
+      <button id="dh-close" class="btn-sub" type="button">Lui Bước</button>
+    </div>
+  </div>
+  <div id="encyclopedia" class="overlay trong hidden" role="dialog" aria-modal="true"
+       aria-labelledby="encyclopedia-title">
+    <section class="encyclopedia-panel">
+      <header class="encyclopedia-head">
+        <div>
+          <span class="sheet-kicker">BÁCH KHOA · CẬP NHẬT</span>
+          <h2 id="encyclopedia-title">Bách Khoa Game</h2>
+          <p>Xem vật phẩm, kỹ năng, quái và bản đồ.</p>
+        </div>
+        <div class="encyclopedia-head-meta">
+          <span id="encyclopedia-sync" class="encyclopedia-sync">Đang đồng bộ</span>
+          <button id="encyclopedia-close" class="encyclopedia-close" type="button"
+                  aria-label="Đóng Bách Khoa Game">×</button>
+        </div>
+      </header>
+      <div class="encyclopedia-body">
+        <nav id="encyclopedia-rail" class="encyclopedia-rail" aria-label="Chuyên mục bách khoa"></nav>
+        <main class="encyclopedia-main">
+          <div class="encyclopedia-toolbar">
+            <label class="encyclopedia-search">
+              <span aria-hidden="true">⌕</span>
+              <input id="encyclopedia-search" type="search"
+                     placeholder="Tìm tên hoặc công dụng" autocomplete="off">
+            </label>
+            <span class="encyclopedia-hint">Chọn mục để xem</span>
+            <span id="encyclopedia-count" class="encyclopedia-count"></span>
+          </div>
+          <div class="encyclopedia-content">
+            <section class="encyclopedia-list-wrap" aria-label="Danh sách tra cứu">
+              <div id="encyclopedia-list" class="encyclopedia-list"></div>
+            </section>
+            <article id="encyclopedia-detail" class="encyclopedia-detail"
+                     aria-live="polite"></article>
+          </div>
+        </main>
+      </div>
+    </section>
+  </div>
+  <div id="dialog" class="overlay trong hidden">
+    <div class="scroll-panel narrow">
+      <h2 id="dialog-title">Bia Đá</h2>
+      <p id="dialog-text"></p>
+      <div id="dialog-reward" class="reward hidden"></div>
+      <div id="dialog-choices" class="dlg-choices hidden"></div>
+      <button id="dialog-action" class="btn-main hidden" type="button">Nhận</button>
+      <button id="dialog-close" class="btn-sub" type="button">Lui Bước</button>
+    </div>
+  </div>
+  <div id="appearance-shop" class="overlay hidden" role="dialog" aria-modal="true"
+       aria-labelledby="appearance-title">
+    <section class="appearance-panel">
+      <header class="appearance-head">
+        <h2 id="appearance-title">Tủ Ngoại Hình</h2>
+        <span class="appearance-wallet" aria-label="Linh Thạch hiện có">
+          <strong id="appearance-stones">0</strong> LT
+        </span>
+        <button id="appearance-x" class="appearance-x" type="button"
+                aria-label="Đóng Tủ Ngoại Hình">✕</button>
+      </header>
+      <nav id="appearance-categories" class="appearance-categories"
+           aria-label="Nhóm ngoại hình"></nav>
+      <div class="appearance-body">
+        <section class="appearance-preview-card" aria-label="Nhân vật đang thử ngoại hình">
+          <canvas id="appearance-preview" width="176" height="238"
+                  aria-label="Xem trước nhân vật"></canvas>
+          <strong id="appearance-preview-name">Thanh Y</strong>
+          <span id="appearance-preview-state">Đang mặc</span>
+          <div class="appearance-actions">
+            <button id="appearance-apply" class="appearance-apply" type="button">Đang mặc</button>
+            <button id="appearance-reset" class="appearance-reset" type="button">Hoàn tác</button>
+          </div>
+          <div id="appearance-status" class="appearance-status" aria-live="polite"></div>
+        </section>
+        <div id="appearance-options" class="appearance-options" aria-label="Các mẫu ngoại hình"></div>
+      </div>
+    </section>
+  </div>
+  <div id="gacha" class="overlay trong hidden" role="dialog" aria-modal="true" aria-labelledby="gacha-title">
+    <div class="scroll-panel gacha-panel">
+      <button id="gacha-close" class="panel-x" type="button" aria-label="Rời Tàng Kinh Các">✕</button>
+      <header class="gacha-head">
+        <h2 id="gacha-title">Rút Bí Tịch</h2>
+        <span id="gacha-stones" class="gacha-stones">0 Linh Thạch</span>
+      </header>
+      <div id="gacha-pools" class="gacha-pools" role="tablist" aria-label="Chọn cấp Tàng Kinh Các"></div>
+      <div id="gacha-grid" class="gacha-grid" aria-live="off"></div>
+      <p id="gacha-say" class="gacha-say"></p>
+      <div id="gacha-haul" class="gacha-haul hidden"></div>
+      <footer class="gacha-foot">
+        <button id="gacha-one" class="btn-main" type="button">Rút 1 · 100</button>
+        <button id="gacha-ten" class="btn-main" type="button">Rút 10 · 1.000</button>
+        <button id="gacha-rates" class="btn-sub" type="button">Tỉ Lệ</button>
+      </footer>
+    </div>
+  </div>
+  <div id="hop-mo" class="overlay trong hidden" role="dialog" aria-modal="true" aria-labelledby="hop-title">
+    <div class="scroll-panel gacha-panel hop-panel">
+      <button id="hop-close" class="panel-x" type="button" aria-label="Đóng hộp">✕</button>
+      <header class="gacha-head">
+        <h2 id="hop-title">Hộp Vạn Bảo</h2>
+        <span id="hop-step" class="gacha-stones"></span>
+      </header>
+      <div id="hop-grid" class="gacha-grid hop-grid" aria-live="off"></div>
+      <p id="hop-say" class="gacha-say"></p>
+      <div id="hop-haul" class="gacha-haul hidden"></div>
+      <footer class="gacha-foot">
+        <button id="hop-next" class="btn-main" type="button">Tiếp ›</button>
+      </footer>
+    </div>
+  </div>
+  <div id="bitichluc" class="overlay trong hidden" role="dialog" aria-modal="true" aria-labelledby="bt-title">
+    <div class="scroll-panel bt-panel">
+      <button id="bt-close" class="panel-x" type="button" aria-label="Đóng Bí Tịch Lục">✕</button>
+      <header class="bt-head">
+        <h2 id="bt-title">Bí Tịch Lục</h2>
+        <span id="bt-count" class="gacha-stones">Đã có 0/0</span>
+      </header>
+      <div class="bt-bar">
+        <div id="bt-tabs" class="bt-tabs" role="tablist" aria-label="Loại bí tịch"></div>
+        <input id="bt-find" class="bt-find" type="search" placeholder="Tìm tên, hệ…" autocomplete="off" aria-label="Tìm bí tịch">
+      </div>
+      <div id="bt-groups" class="bt-groups" aria-label="Lọc theo nhóm"></div>
+      <div id="bt-body" class="bt-body">
+        <div id="bt-list" class="bt-list"></div>
+        <div id="bt-detail" class="bt-detail" aria-live="polite"></div>
+      </div>
+      <p id="bt-note" class="bt-note"></p>
+    </div>
+  </div>
+  <div id="worldmap" class="overlay trong hidden" role="dialog" aria-modal="true" aria-labelledby="wm-title">
+    <div class="scroll-panel wm-panel">
+      <button id="wm-close" class="panel-x" type="button" aria-label="Đóng bản đồ thế giới">✕</button>
+      <header class="wm-head">
+        <h2 id="wm-title">Bản Đồ Thế Giới</h2>
+        <span id="wm-here" class="wm-here"></span>
+      </header>
+      <div id="wm-stage" class="wm-stage">
+        <canvas id="wm-canvas" tabindex="0"
+                aria-label="Bản đồ thế giới. Kéo để xem, cuộn hoặc chụm để thu phóng, chạm một vùng để xem chi tiết."></canvas>
+        <div class="wm-tools" role="group" aria-label="Thu phóng bản đồ">
+          <button id="wm-zin" type="button" aria-label="Phóng to" title="Phóng to (+)">+</button>
+          <button id="wm-zout" type="button" aria-label="Thu nhỏ" title="Thu nhỏ (-)">−</button>
+          <button id="wm-me" type="button" aria-label="Về chỗ bạn đang đứng" title="Chỗ bạn đang đứng">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.4"/><circle cx="12" cy="12" r="8"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/></svg>
+          </button>
+          <button id="wm-fit" type="button" aria-label="Xem toàn cảnh" title="Toàn cảnh (0)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+          </button>
+        </div>
+        <aside id="wm-card" class="wm-card hidden" aria-live="polite"></aside>
+      </div>
+      <p class="wm-hint">
+        <span class="wm-key"><i class="you"></i>Bạn</span>
+        <span class="wm-key"><i class="road"></i>Đường nối</span>
+        <span class="wm-key"><i class="tele"></i>Truyền tống</span>
+        <span class="wm-key"><i class="quest">!</i>Nhiệm vụ</span>
+        <span class="wm-tip">Kéo để xem · cuộn / chụm để thu phóng · chạm một vùng để xem chi tiết</span>
+      </p>
+    </div>
+  </div>
+  <div id="bag" class="overlay trong hidden" role="dialog" aria-modal="true" aria-labelledby="bag-title">
+    <div class="scroll-panel hanh-trang-panel">
+      <button id="bag-close" class="panel-x" type="button" aria-label="Đóng hành trang">✕</button>
+      <header class="bag-head">
+        <div class="bag-title-row"><span class="sheet-kicker"></span><h2 id="bag-title">Hành Trang</h2>
+          <button id="bag-giftcode" class="bag-giftcode" type="button" title="Nhập gift code">
+            <span aria-hidden="true">🎁</span> Gift Code</button></div>
+        <div class="bag-head-stats">
+          <div id="bag-wallet" class="wallet" aria-label="Linh Thạch hiện có">
+            <span class="stone-mark" aria-hidden="true">◈</span>
+            <span class="wallet-label">Linh Thạch</span><strong id="stone-count">0</strong>
+            <i id="stone-day" class="wallet-ngay" aria-hidden="true"><i id="stone-day-fill"></i></i>
+          </div>
+          <span id="bag-count" class="bag-count">0 / 90 ô</span>
+          <button id="bag-expand" class="bag-expand" type="button" aria-label="Mở thêm ô túi">+</button>
+        </div>
+      </header>
+      <div class="ht-than">
+        <nav id="ht-rail" class="ht-rail" aria-label="Mục trong hành trang">
+          <button class="ht-muc on" type="button" data-tab="trang-bi">Trang Bị</button>
+          <button class="ht-muc" type="button" data-tab="bi-tich">Bí Tịch</button>
+          <button class="ht-muc" type="button" data-tab="tu-dong">Tự Động Đánh</button>
+          <button class="ht-muc" type="button" data-tab="dot-pha">Đột Phá</button>
+          <button class="ht-muc" type="button" data-tab="hoat-dong">Hoạt Động</button>
+          <button id="ht-menu" class="ht-muc ht-menu" type="button"
+                  title="Mở Cài Đặt" aria-label="Mở Cài Đặt">Cài Đặt</button>
+        </nav>
+        <div class="ht-chinh">
+          <div id="ht-trang-bi" class="ht-tab">
+            <div class="bag-shell">
+              <section class="equipment-pane" aria-label="Các ô trang bị">
+                <div class="equipment-board">
+                  <canvas id="equipment-avatar" width="128" height="136" aria-label="Nhân vật đang trang bị"></canvas>
+                  <div id="equipment-slots"></div>
+                </div>
+                <div id="equipment-summary" class="equipment-summary"></div>
+              </section>
+              <section class="inventory-pane" aria-label="Hành Trang">
+                <div id="bag-filters" class="bag-filters" role="tablist" aria-label="Loại đồ trong Hành Trang">
+                  <button type="button" class="bag-filter on" role="tab" aria-selected="true" data-filter="trang-bi">Trang Bị</button>
+                  <button type="button" class="bag-filter" role="tab" aria-selected="false" data-filter="vat-pham">Vật Phẩm</button>
+                  <button type="button" class="bag-filter" role="tab" aria-selected="false" data-filter="dao-thuat">Đạo Thuật</button>
+                </div>
+                <div id="bag-list" class="bag-list"></div>
+                <p id="bag-empty" class="dim-note">Không có đồ trong mục này.</p>
+              </section>
+            </div>
+          </div>
+          <div id="ht-so" class="ht-tab hidden">
+            <div id="skill-list" class="skill-list"></div>
+          </div>
+          <div id="ht-tu-dong" class="ht-tab hidden">
+            <section id="td-bo" class="td-bo" aria-label="Bộ combo">
+              <div class="td-bo-hang">
+                <span class="td-bo-tieu">Bộ combo</span>
+                <div id="td-bo-chip" class="td-bo-chip" role="radiogroup" aria-label="Chọn bộ combo"></div>
+              </div>
+              <div class="td-bo-hang td-bo-viec">
+                <button type="button" id="td-bo-moi" class="td-bo-nut">+ Bộ mới</button>
+                <button type="button" id="td-bo-ten" class="td-bo-nut">Đổi tên</button>
+                <button type="button" id="td-bo-xoa" class="td-bo-nut td-bo-nguy">Xoá</button>
+                <button type="button" id="td-bo-loai-nut" class="td-bo-nut td-bo-loai-nut"
+                        aria-expanded="false" aria-controls="td-bo-loai">Tự đổi theo mục tiêu ▾</button>
+              </div>
+              <form id="td-bo-form" class="td-bo-form hidden" autocomplete="off">
+                <label for="td-bo-input" id="td-bo-form-nhan" class="td-bo-form-nhan">Tên bộ</label>
+                <input id="td-bo-input" class="td-bo-input" type="text" maxlength="14"
+                       autocomplete="off" spellcheck="false" enterkeyhint="done">
+                <button type="submit" class="td-bo-nut td-bo-chinh">Lưu</button>
+                <button type="button" id="td-bo-huy" class="td-bo-nut">Huỷ</button>
+              </form>
+              <div id="td-bo-loai" class="td-bo-loai hidden"></div>
+            </section>
+            <div id="td-uu-tien" class="td-uu-tien" role="radiogroup" aria-label="Ưu tiên mục tiêu của Tự Động">
+              <button type="button" role="radio" data-uu-tien="auto" title="Gần nhất">Tự động</button>
+              <button type="button" role="radio" data-uu-tien="boss" title="Boss trước">Boss</button>
+              <button type="button" role="radio" data-uu-tien="quai" title="Quái thường trước, né boss">Quái</button>
+              <button type="button" role="radio" data-uu-tien="nguoi" title="Người đánh được (tỉ thí, đồ sát, Tông Môn Chiến) trước">Nhân vật</button>
+              <button type="button" role="radio" data-uu-tien="mau" title="Con ít máu nhất trong tầm trước">Máu ít</button>
+            </div>
+            <div id="td-bo-dang" class="td-bo-dang hidden"></div>
+            <div id="td-list" class="td-list" role="group" aria-label="Chiêu dùng cho Tự Động"></div>
+            <div class="td-thao-tac">
+              <button type="button" id="td-goc" class="td-goc" disabled>↺ Thứ tự gốc</button>
+            </div>
+          </div>
+          <div id="ht-hoat-dong" class="ht-tab hidden"></div>
+          <div id="ht-dot-pha" class="ht-tab hidden">
+            <div id="cs-seg" class="cs-seg" role="tablist" aria-label="Đột Phá">
+              <button type="button" role="tab" class="on" aria-selected="true" data-cs="pha-quan">Phá Quan</button>
+              <button type="button" role="tab" aria-selected="false" data-cs="chi-so">Chỉ Số</button>
+            </div>
+            <div id="chi-so-view" class="cs-view hidden" aria-live="off"></div>
+            <div id="breakthrough-widget">
+              <button id="btn-breakthrough" type="button"
+                      aria-controls="breakthrough-panel" aria-expanded="false">
+                <span class="scroll-icon" aria-hidden="true"><i></i></span>
+                <span id="breakthrough-button-label">Tiến Độ Đột Phá</span>
+                <b id="breakthrough-badge">0/0</b>
+              </button>
+              <section id="breakthrough-panel" class="breakthrough-sheet hidden"
+                       aria-label="Tiến độ đột phá cảnh giới" aria-live="polite">
+                <div class="breakthrough-head">
+                  <div>
+                    <span class="sheet-kicker">PHÁ QUAN LỤC</span>
+                    <h2 id="breakthrough-title">Đột Phá Cảnh Giới</h2>
+                  </div>
+                  <button id="breakthrough-close" type="button" aria-label="Thu tờ tiến độ">×</button>
+                </div>
+                <div id="breakthrough-route" class="breakthrough-route"></div>
+                <div id="breakthrough-requirements"></div>
+                <div id="breakthrough-status" class="breakthrough-status"></div>
+                <div id="breakthrough-place" class="breakthrough-place"></div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="bag-detail" class="bag-detail hidden" role="dialog" aria-modal="true" aria-label="Chi tiết vật phẩm"></div>
+    </div>
+  </div>
+  <div id="downed" class="overlay hidden" role="dialog" aria-modal="true"
+       aria-labelledby="downed-title">
+    <div class="downed-panel">
+      <div class="downed-mark" aria-hidden="true">×</div>
+      <h2 id="downed-title">Gục</h2>
+      <p class="downed-tale">Khí huyết đã cạn.</p>
+      <p class="downed-timer">Tự hồi sau <b id="downed-count">60s</b></p>
+      <button id="downed-home" class="downed-btn primary" type="button">
+        <b>Về làng</b>
+        <small>Miễn phí</small>
+      </button>
+      <button id="downed-spot" class="downed-btn" type="button">
+        <b>Hồi sinh</b>
+        <small id="downed-spot-note">Tại chỗ</small>
+      </button>
+      <button id="downed-watch" class="downed-btn ghost" type="button">
+        <b>Nằm xem</b>
+        <small>Để đó</small>
+      </button>
+    </div>
+  </div>
+  <button id="downed-badge" class="hidden" type="button"
+          aria-label="Mở lại bảng trọng thương">Trọng Thương</button>
+  <div id="skill-pop" class="overlay trong hidden" role="dialog" aria-modal="true"
+       aria-label="Mô tả chiêu thức">
+    <div class="scroll-panel narrow skill-pop-panel">
+      <div id="skill-pop-body"></div>
+      <button id="skill-pop-use" class="btn-main hidden" type="button">Gắn vào phím 2</button>
+      <button id="skill-pop-close" class="btn-sub" type="button">Đóng</button>
+    </div>
+  </div>
+  <div id="menu" class="overlay hidden" aria-labelledby="menu-title">
+      <div class="scroll-panel menu-panel">
+        <div class="menu-head">
+          <div>
+            <h2 id="menu-title">Cài Đặt</h2>
+            <p id="menu-player" class="menu-player" aria-live="polite"></p>
+          </div>
+          <span class="menu-hint">ESC</span>
+        </div>
+        <button id="menu-resume" class="btn-main" type="button">Tiếp Tục Hành Trình</button>
+        <section class="menu-account" aria-labelledby="menu-account-title">
+          <h3 id="menu-account-title">Tài khoản · Account</h3>
+          <div class="menu-account-actions">
+            <button id="menu-logout" class="btn-sub menu-logout" type="button">Đăng xuất</button>
+            <button id="menu-delete-account" class="btn-sub menu-delete-account hidden" type="button">
+              Xoá tài khoản · Delete Account
+            </button>
+          </div>
+          <p id="account-login-name" class="account-login-name hidden"></p>
+          <div id="account-email-link" class="account-email-link hidden">
+            <button id="account-email-open" class="btn-sub account-email-open" type="button">Liên kết email</button>
+            <p id="account-email-done" class="account-email-done hidden"></p>
+            <form id="account-email-form" class="account-email-form hidden">
+              <p id="account-email-help" class="account-email-help"></p>
+              <div class="account-email-row">
+                <input id="account-email-input" type="email" autocomplete="email"
+                       placeholder="Email" maxlength="254" aria-label="Email">
+                <button id="account-email-send" class="btn-sub" type="button">Gửi mã</button>
+              </div>
+              <input id="account-email-password" class="hidden" type="password" autocomplete="new-password"
+                     placeholder="Mật khẩu mới (ít nhất 6 ký tự)" minlength="6" maxlength="72"
+                     aria-label="Mật khẩu mới">
+              <div class="account-email-row">
+                <input id="account-email-code" type="text" inputmode="numeric"
+                       autocomplete="one-time-code" pattern="[0-9]{6,10}" maxlength="10"
+                       placeholder="Mã xác nhận" aria-label="Mã xác nhận">
+                <button id="account-email-confirm" class="btn-sub" type="submit">Xác nhận</button>
+              </div>
+            </form>
+            <p id="account-email-msg" class="account-email-msg" aria-live="polite"></p>
+          </div>
+        </section>
+        <div class="menu-settings-grid" aria-label="Thiết lập trò chơi">
+          <button id="menu-touch" class="btn-sub" type="button">Điều khiển: Bàn phím</button>
+          <button id="menu-touch-style" class="btn-sub" type="button">Kiểu di chuyển: Phím hướng</button>
+          <button id="menu-theme" class="btn-sub" type="button">Tông cảnh vật: Thuỷ Mặc</button>
+          <button id="menu-zoom" class="btn-sub" type="button">Tỉ lệ phóng: Rộng</button>
+          <button id="menu-gfx" class="btn-sub" type="button">Đồ hoạ: Bình thường</button>
+          <button id="menu-weather" class="btn-sub" type="button">Thời tiết: Đầy đủ</button>
+          <button id="menu-nguoi" class="btn-sub" type="button">Người chơi khác: Hiện tất cả</button>
+          <button id="menu-fps" class="btn-sub" type="button">Khoá FPS: Tự động</button>
+          <button id="menu-tuha" class="btn-sub" type="button">Tự hạ đồ hoạ khi giật: Bật</button>
+          <button id="menu-audio" class="btn-sub" type="button" aria-expanded="false" aria-controls="menu-audio-opts">Âm thanh: Vừa</button>
+          <div id="menu-audio-opts" class="menu-audio-opts hidden">
+            <label><input id="audio-tick-music" type="checkbox"> <span>Nhạc nền</span></label>
+            <label><input id="audio-tick-sfx" type="checkbox"> <span>Hiệu ứng</span></label>
+            <button id="audio-vol" class="btn-sub" type="button">Âm lượng: Vừa</button>
+          </div>
+          <button id="menu-guide" class="btn-sub" type="button">Mũi tên chỉ đường: Bật</button>
+          <button id="menu-tutorial" class="btn-sub" type="button">Xem lại hướng dẫn</button>
+          <button id="menu-feedback" class="btn-sub" type="button">Góp ý</button>
+          <button id="menu-thoat-ket" class="btn-sub" type="button">Thoát kẹt</button>
+          <div id="menu-co-nut" class="btn-sub menu-co-nut" role="group" aria-label="Cỡ nút cảm ứng">
+            <span>Cỡ nút <b id="menu-co-nut-pt">100%</b></span>
+            <button type="button" data-buoc="-1" aria-label="Thu nhỏ nút">−</button>
+            <button type="button" data-buoc="1" aria-label="Phóng to nút">+</button>
+          </div>
+          <button id="menu-move-layout" class="btn-sub" type="button">Chỉnh nút di chuyển</button>
+          <button id="menu-doc-gon" class="btn-sub" type="button">Bố cục màn dọc: Gọn</button>
+          <button id="menu-khoa-xoay" class="btn-sub" type="button">Khoá xoay màn hình: Tự do</button>
+        </div>
+        <nav class="menu-legal" aria-label="Pháp lý và hỗ trợ">
+          <a href="privacy.html" target="_blank" rel="noopener" data-legal>Chính sách quyền riêng tư</a>
+          <a href="terms.html" target="_blank" rel="noopener" data-legal>Điều khoản sử dụng</a>
+          <a href="support.html" target="_blank" rel="noopener" data-legal>Hỗ trợ</a>
+        </nav>
+      </div>
+    </div>
+  <div id="delete-account" class="hidden" role="dialog" aria-modal="true"
+       aria-labelledby="delete-account-title" aria-describedby="delete-account-text">
+    <div class="delete-account-panel">
+      <h2 id="delete-account-title">Xoá tài khoản?<small>Delete account?</small></h2>
+      <div id="delete-account-text" class="delete-account-text">
+        <p>Tài khoản <b id="delete-account-name"></b>, nhân vật và toàn bộ tiến trình đã lưu trên
+           máy chủ sẽ bị <b>xoá vĩnh viễn</b>. Không thể hoàn tác.</p>
+        <p lang="en">Your account, character and all saved progress will be
+           <b>permanently deleted</b> from our servers. This cannot be undone.</p>
+      </div>
+      <label id="delete-account-xac" class="delete-account-xac" for="delete-account-input">
+        <span id="delete-account-hoi"></span>
+        <input id="delete-account-input" type="password" maxlength="128"
+               autocomplete="current-password" spellcheck="false" autocapitalize="off">
+      </label>
+      <p id="delete-account-msg" class="delete-account-msg" aria-live="assertive"></p>
+      <div class="delete-account-btns">
+        <button id="delete-account-cancel" class="btn-sub" type="button">Huỷ · Cancel</button>
+        <button id="delete-account-confirm" class="btn-sub delete-account-danger" type="button">
+          Xoá vĩnh viễn · Delete permanently
+        </button>
+        <button id="delete-account-done" class="btn-main hidden" type="button">OK</button>
+      </div>
+    </div>
+  </div>
+  <div id="legal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+    <div class="legal-panel">
+      <div class="legal-head">
+        <h2 id="legal-title">Pháp lý</h2>
+        <button id="legal-close" class="btn-sub" type="button" aria-label="Đóng">Đóng</button>
+      </div>
+      <div id="legal-body" class="legal-body" tabindex="0"></div>
+    </div>
+  </div>
+  <div id="creator" class="overlay hidden">
+    <div class="scroll-panel">
+      <header class="creator-head">
+        <div>
+          <span class="creator-eyebrow">TÂN THỦ · KHỞI ĐẦU</span>
+          <h1>Tạo đạo thể</h1>
+        </div>
+      </header>
+      <div class="creator-body">
+        <div class="preview-wrap">
+          <div class="preview-stage">
+            <canvas id="preview" width="256" height="384" aria-label="Nhân vật xem trước"></canvas>
+          </div>
+          <div id="preview-dirs">
+            <button data-dir="3" type="button" title="Nhìn từ sau">▲</button>
+            <button data-dir="1" type="button" title="Nhìn nghiêng trái">◀</button>
+            <button data-dir="0" type="button" class="active" title="Nhìn chính diện">▼</button>
+            <button data-dir="2" type="button" title="Nhìn nghiêng phải">▶</button>
+          </div>
+          <div id="preview-actions" aria-label="Xem động tác">
+            <button type="button" data-action="idle" class="active">Đứng</button>
+            <button type="button" data-action="run">Chạy</button>
+            <button type="button" data-action="attack">Đánh</button>
+          </div>
+        </div>
+        <div class="options">
+          <section class="creator-name-section">
+            <div class="creator-section-top">
+              <div>
+                <h2>Đặt tên nhân vật</h2>
+              </div>
+            </div>
+            <label class="name-row" for="opt-name">
+              <span class="sr-only">Đạo hiệu của bạn</span>
+              <input id="opt-name" type="text" maxlength="12" spellcheck="false"
+                     autocomplete="off" autocapitalize="none" autofocus
+                     aria-label="Đạo hiệu của bạn" placeholder="Ví dụ: hanlap123">
+            </label>
+            <small id="name-hint">3–12 ký tự, bắt đầu bằng chữ cái, chỉ gồm chữ và số</small>
+          </section>
+          <div class="creator-options-heading">
+            <div class="creator-options-copy">
+              <h2>Chỉnh diện mạo</h2>
+            </div>
+            <button id="btn-random" class="creator-random" type="button" title="Bốc lại mọi nét chưa khoá">
+              <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1.8" y="1.8" width="12.4" height="12.4" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="5.3" cy="5.3" r="1.15" fill="currentColor"/><circle cx="10.7" cy="5.3" r="1.15" fill="currentColor"/><circle cx="8" cy="8" r="1.15" fill="currentColor"/><circle cx="5.3" cy="10.7" r="1.15" fill="currentColor"/><circle cx="10.7" cy="10.7" r="1.15" fill="currentColor"/></svg>
+              <span>Ngẫu nhiên</span>
+            </button>
+          </div>
+          <section class="sel-card">
+            <h3><span class="sel-title">Giới tính</span><span class="sel-count" aria-hidden="true"></span></h3>
+            <div class="row sel" id="opt-gender"></div>
+          </section>
+          <section class="sel-card">
+            <h3><span class="sel-title">Sắc da</span><span class="sel-count" aria-hidden="true"></span></h3>
+            <div class="row sel" id="opt-skin"></div>
+          </section>
+          <section class="sel-card">
+            <h3><span class="sel-title">Kiểu tóc</span><span class="sel-count" aria-hidden="true"></span></h3>
+            <div class="row sel" id="opt-hair"></div>
+          </section>
+          <section class="sel-card">
+            <h3><span class="sel-title">Màu tóc</span><span class="sel-count" aria-hidden="true"></span></h3>
+            <div class="row sel" id="opt-haircolor"></div>
+          </section>
+          <section class="sel-card">
+            <h3><span class="sel-title">Râu</span><span class="sel-count" aria-hidden="true"></span></h3>
+            <div class="row sel" id="opt-beard"></div>
+          </section>
+          <section class="sel-card">
+            <h3><span class="sel-title">Màu mắt</span><span class="sel-count" aria-hidden="true"></span></h3>
+            <div class="row sel" id="opt-eyes"></div>
+          </section>
+          <section class="sel-card">
+            <h3><span class="sel-title">Y phục</span><span class="sel-count" aria-hidden="true"></span></h3>
+            <div class="row sel" id="opt-outfit"></div>
+          </section>
+          <section class="sel-card">
+            <h3><span class="sel-title">Giày</span><span class="sel-count" aria-hidden="true"></span></h3>
+            <div class="row sel" id="opt-shoes"></div>
+          </section>
+        </div>
+      </div>
+      <button id="btn-enter" class="btn-enter" type="button">Bước Vào Tiên Đồ</button>
+    </div>
+  </div>
+  <div id="fade"></div>
+  <div id="map-loading" class="hidden">
+    <div class="map-load-box">
+      <span id="map-load-name"></span>
+      <div id="map-load-bar"><div id="map-load-fill"></div></div>
+    </div>
+  </div>
+</div>
+<script src="runtime-config.js?v=7280d5320cd5"></script>
+<script src="vendor/supabase.js?v=3beabe058d13"></script>
+<script src="src/core/config.4d62033cf3d4.js"></script>
+<script src="src/core/utils.f3a5ec533e9c.js"></script>
+<script src="src/core/probe.46bc430cdb7f.js"></script>
+<script src="src/core/wakelock.c5e6638481b0.js"></script>
+<script src="src/core/quality.b6d23545cdc8.js"></script>
+<script src="src/gfx/palette.653c0fd142f5.js"></script>
+<script src="src/gfx/pixel.0b33ea28745d.js"></script>
+<script src="src/gfx/art_tieu_xa.5957888c86a0.js"></script>
+<script src="src/gfx/sectemblem_art.d2eab8a41f38.js"></script>
+<script src="src/gfx/sectemblem.3cafab028128.js"></script>
+<script src="src/gfx/bmfont.be4a881b8223.js"></script>
+<script src="assets/manifest.js?v=96b8647f0eb5"></script>
+<script src="src/core/assets.867ef827efa8.js"></script>
+<script src="src/systems/items.a77e8598ad05.js"></script>
+<script src="src/systems/quest.a35b5315b9e9.js"></script>
+<script src="src/systems/fishing.61fda3f4136a.js"></script>
+<script src="src/systems/farm.33a7e12affcd.js"></script>
+<script src="src/systems/targeting.5f183f7cdc21.js"></script>
+<script src="src/systems/skills.730c8b7ed811.js"></script>
+<script src="src/systems/luc_tinh_truc_kiem.9c2a86310db1.js"></script>
+<script src="src/systems/huyen_anh.7794ccf3bde4.js"></script>
+<script src="src/systems/breakthrough.0121919a423b.js"></script>
+<script src="src/systems/loot.ef0f82c62597.js"></script>
+<script src="src/systems/gacha.2d093af6a274.js"></script>
+<script src="src/systems/food.3746860b0d89.js"></script>
+<script src="src/systems/talismans.8f3ad4dfdbd6.js"></script>
+<script src="src/systems/formations.b88e901817ed.js"></script>
+<script src="src/systems/phapbao.8ecb72099ded.js"></script>
+<script src="src/systems/forge.b5a2f65f37d6.js"></script>
+<script src="src/systems/than_binh.ac5cccb7f40c.js"></script>
+<script src="src/systems/dosat.123898c2550d.js"></script>
+<script src="src/systems/cochien.eee7191b1bcc.js"></script>
+<script src="src/systems/tournament.74a77b900045.js"></script>
+<script src="src/systems/chien_truong.a075dd45cbba.js"></script>
+<script src="src/systems/top_chien_truong.c6c0bdc49ccd.js"></script>
+<script src="src/systems/top_van_tieu.7f4914e998eb.js"></script>
+<script src="src/systems/diem_danh.6468aa36ff72.js"></script>
+<script src="src/systems/tam_lo.7a0cabb5795e.js"></script>
+<script src="src/systems/vet_nut.a4cc895242fc.js"></script>
+<script src="src/systems/chienbang.f4390a2ca12e.js"></script>
+<script src="src/systems/top_boss.cba42e939e30.js"></script>
+<script src="src/systems/ma_bao.f1b924a5be45.js"></script>
+<script src="src/systems/sect.0af4c11c019c.js"></script>
+<script src="src/systems/tongmonchien.5a29e94c766b.js"></script>
+<script src="src/systems/top_tong_mon_chien.5e55af3c7b4f.js"></script>
+<script src="src/systems/lam_lang.cc031607e147.js"></script>
+<script src="src/systems/luyen_quy.872080121e24.js"></script>
+<script src="src/systems/chinh_dao.417ea8ef15e9.js"></script>
+<script src="src/systems/the_tu.b29a1a008917.js"></script>
+<script src="src/systems/hop_hoan.794439481e26.js"></script>
+<script src="src/systems/khoi_loi.bfad406a24ba.js"></script>
+<script src="src/systems/hac_thi.e0f83a577ef5.js"></script>
+<script src="src/systems/hau_ky.64f732fe8a16.js"></script>
+<script src="src/systems/market.eb3c6ba64ea3.js"></script>
+<script src="src/systems/hu_thien.932325909848.js"></script>
+<script src="src/systems/yen_lang.dfdcf57bd265.js"></script>
+<script src="src/systems/tran_mach.fd31fb7d0d4e.js"></script>
+<script src="src/systems/van_tieu.5f9fc269d042.js"></script>
+<script src="src/gfx/charparts.b06e2dc33b85.js"></script>
+<script src="src/gfx/weaponart.8d318b68206c.js"></script>
+<script src="src/gfx/thanh_huyen_kiem.492e66e360ab.js"></script>
+<script src="src/gfx/phien_cung_no.244e7a56477a.js"></script>
+<script src="src/gfx/thiet_khi.75eada320dce.js"></script>
+<script src="src/gfx/spritefactory.71bd6baccb85.js"></script>
+<script src="src/gfx/tileset.597590ab8159.js"></script>
+<script src="src/gfx/terrace.9cfe20684f7f.js"></script>
+<script src="src/gfx/chasm.9173bac3fc6d.js"></script>
+<script src="src/gfx/objects.93c186e52208.js"></script>
+<script src="src/gfx/art_tamgioi.0336efc1526c.js"></script>
+<script src="src/gfx/art_u_uynh_vuc.f02bff1b0f5e.js"></script>
+<script src="src/gfx/art_u_uynh_vuc_vat.6f07990f48ba.js"></script>
+<script src="src/gfx/art_thien_dao_khuyet.b83d3d49a1b7.js"></script>
+<script src="src/gfx/art_thien_dao_khuyet_vat.cd77e2c672e2.js"></script>
+<script src="src/gfx/art_daitan.070b55ab1a39.js"></script>
+<script src="src/gfx/art_dau_truong.64ba5b3aafe7.js"></script>
+<script src="src/gfx/art_dau_truong_loi.59ff87ca5566.js"></script>
+<script src="src/gfx/art_dau_truong_nen.40cb00a75321.js"></script>
+<script src="src/gfx/art_dau_truong_vat.d4032ff869f2.js"></script>
+<script src="src/gfx/art_dau_truong_fx.3de485053842.js"></script>
+<script src="src/gfx/art_dai_long_uyen.d3ba4cd970e2.js"></script>
+<script src="src/gfx/art_phong_cho.4e782d1f03b0.js"></script>
+<script src="src/gfx/art_mieu_truong_con.358c043bce3b.js"></script>
+<script src="src/gfx/art_hac_thi.6f523162028d.js"></script>
+<script src="src/gfx/art_lam_lang.6d29d16ef589.js"></script>
+<script src="src/world/mapdata.430a546fd419.js"></script>
+<script src="src/world/map_tamgioi.c3a33f0e9b23.js"></script>
+<script src="src/world/map_three_maps.3fbb466c6c1e.js"></script>
+<script src="src/world/map_thung_lung_v2.1253d7c3f604.js"></script>
+<script src="src/world/map_daitan.195c5ea8170d.js"></script>
+<script src="src/world/map_dau_truong.6401c0d77875.js"></script>
+<script src="src/world/map_dai_long_uyen.a899333143d5.js"></script>
+<script src="src/world/map_phong_cho.589daaa34b40.js"></script>
+<script src="src/world/map_chien_truong.ecf21cdc737c.js"></script>
+<script src="src/world/map_tam_lo.668fd9302c54.js"></script>
+<script src="src/systems/tam_lo_nhin.e63acec1a9cf.js"></script>
+<script src="src/world/map_vet_nut.75028bb287bc.js"></script>
+<script src="src/systems/vet_nut_nhin.92b19fd3191b.js"></script>
+<script src="src/world/map_long_uyen.c355c8615e7c.js"></script>
+<script src="src/world/map_mieu_truong_con.14574894e6f6.js"></script>
+<script src="src/world/map_hac_thi.b7fd93384833.js"></script>
+<script src="src/world/map_lam_lang.ef79e69a3a35.js"></script>
+<script src="src/world/map_hu_thien.0e44272157ed.js"></script>
+<script src="src/world/map_yen_lang.aaa7fb685d9f.js"></script>
+<script src="src/world/map_tru_tran_mach.c1f698d5e807.js"></script>
+<script src="src/world/huyet_sac.3949eaadaaeb.js"></script>
+<script src="src/world/npc_dialogues.eb8093506ac5.js"></script>
+<script src="src/systems/truyentong.bacf54d07e12.js"></script>
+<script src="src/world/map_khu.93be838a5d6b.js"></script>
+<script src="src/gfx/art_three_maps.ccbfb8db594f.js"></script>
+<script src="src/gfx/art_huyet_xich.54b75136852a.js"></script>
+<script src="src/gfx/art_tan_vien.debd63b9484d.js"></script>
+<script src="src/gfx/art_tan_vien_fx_tam.810f3f0af476.js"></script>
+<script src="src/gfx/art_tan_vien_fx.8eefdb6b53fa.js"></script>
+<script src="src/gfx/art_tan_vien_nha.bb7a3c817f84.js"></script>
+<script src="src/gfx/art_tan_vien_vat.8cb48b90ee08.js"></script>
+<script src="src/gfx/art_bai_da.00ddbc737e86.js"></script>
+<script src="src/gfx/art_rung_truc.1990033c25b2.js"></script>
+<script src="src/gfx/art_duoc_coc.4e93cd2f6e2f.js"></script>
+<script src="src/gfx/art_mieu_hoang.a65bc2ca5189.js"></script>
+<script src="src/gfx/art_mo_linh_thach.e52a3e9f5d20.js"></script>
+<script src="src/gfx/art_long_uyen.abe9e4f45ce3.js"></script>
+<script src="src/gfx/dong_chay.1d1a5b298174.js"></script>
+<script src="src/gfx/art_thung_lung.4a11320c1d81.js"></script>
+<script src="src/gfx/art_thung_lung_fx.4217f5cdc909.js"></script>
+<script src="src/gfx/art_thung_lung_vat.5405c3d28b2f.js"></script>
+<script src="src/gfx/art_thung_lung_nui.862338d2a204.js"></script>
+<script src="src/gfx/art_hu_thien.d53d35aeedc6.js"></script>
+<script src="src/gfx/art_hu_thien_1.ff3a6d86131b.js"></script>
+<script src="src/gfx/art_hu_thien_2.a2f6bd197f8f.js"></script>
+<script src="src/gfx/art_hu_thien_3.2d21b43101a9.js"></script>
+<script src="src/gfx/art_hu_thien_4.85ae40266c21.js"></script>
+<script src="src/gfx/art_hu_thien_vat.4df4fc48c8b6.js"></script>
+<script src="src/gfx/art_hu_thien_vat2.474662ba0a76.js"></script>
+<script src="src/gfx/art_hu_thien_fx.9de012c53053.js"></script>
+<script src="src/gfx/art_hu_thien_fx2.58ea0711b5e4.js"></script>
+<script src="src/gfx/art_yen_lang.677a5e68a97e.js"></script>
+<script src="src/gfx/art_yen_lang_nen.71493a34c419.js"></script>
+<script src="src/gfx/art_yen_lang_vat.101dfa741be4.js"></script>
+<script src="src/gfx/art_yen_lang_vat2.a357471f7b3c.js"></script>
+<script src="src/gfx/art_yen_lang_fx.e9c0e80b4f1c.js"></script>
+<script src="src/gfx/art_ve_tay.14cef4ec1014.js"></script>
+<script src="src/gfx/art_hang_dong.f795172cc76d.js"></script>
+<script src="src/gfx/art_hang_dong_vat.c5b6a65b250a.js"></script>
+<script src="src/gfx/art_hang_dong_fx.c4155628eba2.js"></script>
+<script src="src/gfx/art_hac_phong.468b42a8c8ca.js"></script>
+<script src="src/gfx/art_hac_vat.d3972c38cd83.js"></script>
+<script src="src/gfx/art_hac_phong_fx.6d20543423b8.js"></script>
+<script src="src/gfx/art_hac_thi_nen.c498ec476321.js"></script>
+<script src="src/gfx/art_hac_thi_vat.161b2d4e8d1d.js"></script>
+<script src="src/gfx/art_hac_thi_fx.95df8d4b46c8.js"></script>
+<script src="src/gfx/art_tam_canh.1f1da5d72af7.js"></script>
+<script src="src/gfx/art_tam_canh_vat.75444d0c2ab9.js"></script>
+<script src="src/gfx/art_tam_canh_fx.5935aa03cd88.js"></script>
+<script src="src/gfx/art_mieu_truong_con_nen.67a6dadcbbe8.js"></script>
+<script src="src/gfx/art_mieu_truong_con_fx.86b3a5a80209.js"></script>
+<script src="src/gfx/art_thang_long.76a333c2bc73.js"></script>
+<script src="src/gfx/art_thang_long_kt.6c8ed850f2ed.js"></script>
+<script src="src/gfx/art_thang_long_vat.24512a8a6721.js"></script>
+<script src="src/gfx/art_thang_long_vat2.8d8d9d58bd3c.js"></script>
+<script src="src/gfx/art_thang_long_cay.8ec88e197710.js"></script>
+<script src="src/gfx/art_thang_long_fx.4979362eba8a.js"></script>
+<script src="src/gfx/art_truyen_tong.678eac8298ad.js"></script>
+<script src="src/gfx/art_lam_lang_nen.aef1cd9c16b8.js"></script>
+<script src="src/gfx/art_lam_lang_vat.41ea70d7e98f.js"></script>
+<script src="src/gfx/art_lam_lang_vat2.6aa48bad1b73.js"></script>
+<script src="src/gfx/art_lam_lang_vat3.7dcf65fbead0.js"></script>
+<script src="src/gfx/art_lam_lang_fx.71dd1ebc14c5.js"></script>
+<script src="src/gfx/art_vuon_ca_nhan.fc52f3464b32.js"></script>
+<script src="src/gfx/art_vuon_ca_nhan_vat.4029f3aa9a0f.js"></script>
+<script src="src/gfx/art_vuon_ca_nhan_fx.ff64a1faf8af.js"></script>
+<script src="src/gfx/art_chien_truong.32b923e768b7.js"></script>
+<script src="src/gfx/art_chien_truong_ve.4afc383c1d34.js"></script>
+<script src="src/gfx/art_chien_truong_nuoc.f20832f12599.js"></script>
+<script src="src/gfx/art_chien_truong_fx.b29fd41f1716.js"></script>
+<script src="src/gfx/art_tam_lo.9d103993d9a0.js"></script>
+<script src="src/gfx/art_tam_lo_ve.67bc94565de8.js"></script>
+<script src="src/gfx/art_tam_lo_nuoc.907f16b121df.js"></script>
+<script src="src/gfx/art_tam_lo_fx.17f4c28bf389.js"></script>
+<script src="src/gfx/art_vet_nut.bcd69d467934.js"></script>
+<script src="src/gfx/art_vet_nut_ve.29eb7298d82a.js"></script>
+<script src="src/gfx/art_vet_nut_vat.0c24ec28e28b.js"></script>
+<script src="src/gfx/art_vet_nut_fx.4155a20fb879.js"></script>
+<script src="src/world/tilemap.10516c35185e.js"></script>
+<script src="src/world/pathfinding.a3bb4cc3140c.js"></script>
+<script src="src/core/renderer.a27d1305d52b.js"></script>
+<script src="src/core/camera.dae29a1963c1.js"></script>
+<script src="src/core/input.4ea962762577.js"></script>
+<script src="src/fx/audio.cd8cc4064ab9.js"></script>
+<script src="src/fx/vfx.da672a180ed7.js"></script>
+<script src="src/fx/am_hon.b9e3b118e07c.js"></script>
+<script src="src/fx/khoi_loi.f5fa5b435124.js"></script>
+<script src="src/fx/van_kiem_quy_tong.e6b27f8cacd4.js"></script>
+<script src="src/fx/van_kiem_quy_tong_linh_khi.104687eb4db4.js"></script>
+<script src="src/fx/nguyet_quang.b1b4e1fa00ab.js"></script>
+<script src="src/fx/kim_quang_cu_kiem.8097333257f7.js"></script>
+<script src="src/fx/than_chuong.5c1613d851b3.js"></script>
+<script src="src/fx/loi_tien.1683a6e2930c.js"></script>
+<script src="src/fx/quy_an.80478798ab50.js"></script>
+<script src="src/fx/xuyen_kich.1e37f7170481.js"></script>
+<script src="src/fx/huyet_buc_chuong.bdd873a0a89c.js"></script>
+<script src="src/fx/ma_trao.44d9dc36d080.js"></script>
+<script src="src/fx/phi_long.0afbe422e271.js"></script>
+<script src="src/fx/huyet_liem_tram.fd5d0dfda751.js"></script>
+<script src="src/fx/tu_anh_phuoc_tien.b074465d41a0.js"></script>
+<script src="src/fx/hoang_loi_thuong.ba4d626b381c.js"></script>
+<script src="src/fx/huyet_ma_phu.3b6271074606.js"></script>
+<script src="src/fx/ma_tri_mac.4948a8604170.js"></script>
+<script src="src/fx/tu_van_phien.1c6e6f364383.js"></script>
+<script src="src/fx/hac_vu.4cc79fbf9a6c.js"></script>
+<script src="src/fx/thanh_tieu.b73ce6eac105.js"></script>
+<script src="src/fx/bich_nguc_giang.9be02bbb5925.js"></script>
+<script src="src/fx/ngoc_luu_chan_am.fb0dc33bb221.js"></script>
+<script src="src/fx/huyet_nguyet.0a72eae49d91.js"></script>
+<script src="src/fx/ma_chuong.f83abb1c15db.js"></script>
+<script src="src/fx/ngu_hoa_thuong_vu.d6996c0458b0.js"></script>
+<script src="src/fx/kim_thuong_giang_the.abd147925260.js"></script>
+<script src="src/fx/loi_dong.86792ea519f7.js"></script>
+<script src="src/fx/anh_ky.5646c3052463.js"></script>
+<script src="src/fx/tien_vu.24b5ab8f0114.js"></script>
+<script src="src/fx/tieu_canh_kiem_tran.6bf9e9e5e769.js"></script>
+<script src="src/fx/huyet_nguyet_luan_liem.4cb544e2b021.js"></script>
+<script src="src/fx/sakura_vortex.faaabc4c4157.js"></script>
+<script src="src/fx/anh_dao_phong_tran.d2ccc665f199.js"></script>
+<script src="src/fx/boss_bi_tich.807f51582737.js"></script>
+<script src="src/fx/boss_hop_luc.56565d2d3e9f.js"></script>
+<script src="src/fx/huyen_anh.7c1a8b6502ad.js"></script>
+<script src="src/fx/chuong_ho_than.bf5fd6852451.js"></script>
+<script src="src/fx/phap_bao.8ece59e88425.js"></script>
+<script src="src/fx/truc_kiem.f743ab9bbda2.js"></script>
+<script src="src/fx/thanh_huyen_kiem.428d8b69454d.js"></script>
+<script src="src/fx/phien_cung_no.926732a9a5b9.js"></script>
+<script src="src/fx/xich_ma.ae608ae532bd.js"></script>
+<script src="src/fx/kim_cuong.01f8dcf0e709.js"></script>
+<script src="src/fx/man_tuong.1d96d29a0c7d.js"></script>
+<script src="src/fx/the_tu_chieu.a2833289131a.js"></script>
+<script src="src/fx/so_cap_nguyen_to.c0bdf1b1c5ea.js"></script>
+<script src="src/fx/cong_phap_co_ban.c8c1d5737e0f.js"></script>
+<script src="src/fx/huyet_lien_ky.e8fbc66bcdd3.js"></script>
+<script src="src/fx/mong_diep_me_tran.8e1e7bdf819c.js"></script>
+<script src="src/fx/kinh_hoa.0b310b6d7744.js"></script>
+<script src="src/fx/to_hong_phuoc.9cab9df13019.js"></script>
+<script src="src/fx/ho_diep_phe_tam.b1091c555a29.js"></script>
+<script src="src/fx/lotus_surface.ff5c7599f719.js"></script>
+<script src="src/fx/thien_ma_lien_vu.5b92b2bc0828.js"></script>
+<script src="src/fx/hop_hoan_noi.19a7268e2c91.js"></script>
+<script src="src/fx/hop_hoan_chieu.64fbfa2e2281.js"></script>
+<script src="src/fx/tu_tuong_ban.7762cf897392.js"></script>
+<script src="src/fx/don_quang.d2fc86dcaf8d.js"></script>
+<script src="src/fx/hau_ky.281ce3c22315.js"></script>
+<script src="src/gfx/art_tuyet_menh.1be1757e1619.js"></script>
+<script src="src/gfx/art_tuyet_menh_vat.d32a229458bb.js"></script>
+<script src="src/gfx/art_tuyet_menh_fx.18ec3386b489.js"></script>
+<script src="src/ui/prologue_ui.f6cc23b0252e.js"></script>
+<script src="src/fx/boss_hien.cc62027da6b6.js"></script>
+<script src="src/fx/thoi_tiet.16197a9a28a1.js"></script>
+<script src="src/fx/tieu_xa.5176608ab85d.js"></script>
+<script src="src/gfx/tam_lo_ve.86a440dc9137.js"></script>
+<script src="src/gfx/vet_nut_ve.841b08b218d0.js"></script>
+<script src="src/fx/vet_nut_hut.2452f874f9bb.js"></script>
+<script src="src/fx/vet_nut_vao.309a33c30a1f.js"></script>
+<script src="src/fx/hoat_canh.c5e839200741.js"></script>
+<script src="src/fx/huyet_xich_vao.f4f45a00d08a.js"></script>
+<script src="src/fx/yen_lang_vao.9895cc2134ee.js"></script>
+<script src="src/fx/dai_hoi_vao.09d6a5da30aa.js"></script>
+<script src="src/fx/hu_thien_vao.5a0b0825f2dd.js"></script>
+<script src="src/fx/chien_truong_vao.ed7383e25092.js"></script>
+<script src="src/fx/tong_mon_chien_vao.faaafc6e506d.js"></script>
+<script src="src/fx/dot_pha.4c92d245f11b.js"></script>
+<script src="src/fx/tmc_luot_vao.1fa18d25c21a.js"></script>
+<script src="src/fx/van_tieu_vao.b675d94a6bce.js"></script>
+<script src="src/fx/tam_lo_vao.022c3661bf33.js"></script>
+<script src="src/fx/tam_kiep_vao.c233519650f6.js"></script>
+<script src="src/fx/phi_hanh_vao.be36f4f929e2.js"></script>
+<script src="src/fx/vo_lua.fca41cbc7024.js"></script>
+<script src="src/fx/dan_thanh_vao.11ab7de86bb5.js"></script>
+<script src="src/fx/doi_dao_vao.842c310c36c5.js"></script>
+<script src="src/fx/the_tu_vao.5bff791ebb7c.js"></script>
+<script src="src/fx/hop_hoan_vao.a82222dd651b.js"></script>
+<script src="src/fx/hop_hoan_trang_thai.9ad366777d2f.js"></script>
+<script src="src/fx/bi_tich_vao.55dc9523e6f3.js"></script>
+<script src="src/fx/rut_bi_tich.c0f3375ec305.js"></script>
+<script src="src/fx/vu_khi_vao.c27f0f70df52.js"></script>
+<script src="src/fx/the_vung.bd033cc56226.js"></script>
+<script src="src/entities/player.3ce3f92a60a5.js"></script>
+<script src="src/systems/boss_tactics.06e7ad6e27dd.js"></script>
+<script src="src/entities/enemy.7739f83bfc3f.js"></script>
+<script src="src/entities/enemy_tam_lo.e91ab7b85e26.js"></script>
+<script src="src/entities/critter.7a3e3b9aefc8.js"></script>
+<script src="src/entities/pondfish.44285901c4ba.js"></script>
+<script src="src/entities/remote.41ae9fb927a5.js"></script>
+<script src="src/net/client.b7a5ae5d628e.js"></script>
+<script src="src/net/auth.2df7356c22b8.js"></script>
+<script src="src/net/cloudsave.1964e898da34.js"></script>
+<script src="src/net/snapdelta.3970d8a7f70a.js"></script>
+<script src="src/net/formationstate.1c934d076fc4.js"></script>
+<script src="src/net/gateway.9b66608f1070.js"></script>
+<script src="src/ui/uiscale.0c3898e2f48e.js"></script>
+<script src="src/ui/loading.e56ebdc3654f.js"></script>
+<script src="src/ui/hud.5bcadb012337.js"></script>
+<script src="src/ui/xemtudo.491d5c26b98a.js"></script>
+<script src="src/ui/taytrai.9d729995e0b6.js"></script>
+<script src="src/ui/forge.50fc78633697.js"></script>
+<script src="src/ui/than_binh.f34c9ffda364.js"></script>
+<script src="src/ui/hong_ty.10537c3bef26.js"></script>
+<script src="src/ui/danlo.63f19fa75dbb.js"></script>
+<script src="src/ui/market.81ee71340b33.js"></script>
+<script src="src/ui/chat.e7461f3afc6b.js"></script>
+<script src="src/ui/npc_chatter.38ebd5662bc8.js"></script>
+<script src="src/ui/daihoi.37b7a763930b.js"></script>
+<script src="src/ui/chien_truong.ac16c9d1bfae.js"></script>
+<script src="src/ui/tam_lo_cho.ee430c4febd3.js"></script>
+<script src="src/ui/tam_lo.f955dccf0803.js"></script>
+<script src="src/ui/vet_nut.830fe9644954.js"></script>
+<script src="src/ui/tongmonchien.606fbf2becd1.js"></script>
+<script src="src/ui/quansu.d13622e1acbf.js"></script>
+<script src="src/ui/honphien.0fc402533241.js"></script>
+<script src="src/ui/khoiloi.de9feb58bf10.js"></script>
+<script src="src/ui/daohuongdan.748c9291e730.js"></script>
+<script src="src/ui/hacthi.7df9134b5439.js"></script>
+<script src="src/ui/bangnhanh.7079bc31c4a8.js"></script>
+<script src="src/ui/phongcho.da49b0b1c643.js"></script>
+<script src="src/ui/chienbang.fde9dc96cd16.js"></script>
+<script src="src/ui/chien_sanh.983df21cf11c.js"></script>
+<script src="src/ui/sect.a24f7e1fe20c.js"></script>
+<script src="src/ui/inspect.7b7ed2195593.js"></script>
+<script src="src/ui/touch.b02a9718139c.js"></script>
+<script src="src/ui/movelayout.81efc1b6e82d.js"></script>
+<script src="src/ui/docgon.f15eb0a77ed2.js"></script>
+<script src="src/ui/conut.839f9bc16015.js"></script>
+<script src="src/ui/skillbook.747d2b9891b8.js"></script>
+<script src="src/ui/gacha.b5f1edab8a88.js"></script>
+<script src="src/ui/hop.4ab700ec2a5b.js"></script>
+<script src="src/ui/bitichluc.58f49b8a728a.js"></script>
+<script src="src/ui/chiso.59ba2b7a2e6f.js"></script>
+<script src="src/ui/worldmap.55f226aaaec9.js"></script>
+<script src="src/ui/combat_icons.2979cb9b4c01.js"></script>
+<script src="src/ui/hotbar.cf8cfcae2797.js"></script>
+<script src="src/ui/talismanbar.24cfaed8d225.js"></script>
+<script src="src/ui/formations.71ba833c9039.js"></script>
+<script src="src/ui/truyentong.0e100aba27d7.js"></script>
+<script src="src/ui/quickslots.793958935727.js"></script>
+<script src="src/ui/downed.3c0867fe562b.js"></script>
+<script src="src/ui/authui.809da06cb62f.js"></script>
+<script src="src/ui/account.01b36608e8a7.js"></script>
+<script src="src/net/gig.ada22e6f6e3d.js"></script>
+<script src="src/net/tracking.39c3f52297c9.js"></script>
+<script src="src/net/gamota.e3dbb2f019e1.js"></script>
+<script src="src/ui/orientation.504bf7b4611a.js"></script>
+<script src="src/ui/auth_background.f16c48c97b54.js"></script>
+<script src="src/ui/auth_quen.6135e0606ede.js"></script>
+<script src="src/ui/tutorial.ae7752baf10d.js"></script>
+<script src="src/scenes/charcreate.3b46fb413dba.js"></script>
+<script src="src/scenes/prologue_data.bab33af00b4a.js"></script>
+<script src="src/scenes/prologue.53d22a71305c.js"></script>
+<script src="src/scenes/world.149b4b6a3e7b.js"></script>
+<script src="src/systems/huyet_sac.1ce1edbd1bd0.js"></script>
+<script src="src/ui/huyet_sac.13b9df553770.js"></script>
+<script src="src/ui/lamlang.a5f9eb3890a9.js"></script>
+<script src="src/ui/yen_lang.9a46a925ca5f.js"></script>
+<script src="src/ui/tran_mach.ce93c8ab666b.js"></script>
+<script src="src/ui/van_tieu.f3dff09e3cd8.js"></script>
+<script src="src/ui/cong_boss.f5eb1fac3fc8.js"></script>
+<script src="src/ui/pvp_ket.e814ecd15b9b.js"></script>
+<script src="src/ui/huthien.d1db750f49b6.js"></script>
+<script src="src/ui/hoatdong.62ecfd71efdc.js"></script>
+<script src="src/ui/bossboard.574d6e06f9a0.js"></script>
+<script src="src/ui/khu.9b8ccd7f4346.js"></script>
+<script src="src/ui/xephang.5ac723f2d6df.js"></script>
+<script src="src/ui/sukien.f78ecb7a02d9.js"></script>
+<script src="src/ui/encyclopedia.fd4e796b3b09.js"></script>
+<script src="src/core/game.12148fae9ce5.js"></script>
+<script src="src/main.3b04a1566f53.js"></script>
+</body>
+</html>
