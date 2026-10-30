@@ -1,0 +1,142 @@
+
+#chiensanh .sanh-panel {
+  width: min(600px, calc(var(--ui-vw) - 24px));
+  padding: 16px 16px 14px;
+  text-align: left;
+}
+#chiensanh .sanh-panel::before,
+#chiensanh .sanh-panel::after { display: none; }
+#chiensanh button { font-family: var(--font-ui); }
+.sanh-head {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
+  padding: 0 34px 12px 2px;
+  border-bottom: 1px solid rgba(188, 151, 91, 0.34);
+}
+.sanh-head .sheet-kicker { color: #cfc6b4; font-size: 10px; letter-spacing: 0.14em; }
+.sanh-head h2 {
+  margin: 4px 0 0; color: #f0dfba; font-size: clamp(20px, 5vw, 26px); line-height: 1.1;
+  letter-spacing: 0.01em; text-wrap: balance;
+}
+.sanh-now { flex: none; text-align: right; line-height: 1; }
+.sanh-now small { display: block; margin-bottom: 4px; color: #b5a98f; font-family: var(--font-ui); font-size: 10px; letter-spacing: 0.05em; }
+.sanh-now b { color: #f0d08a; font-family: var(--font-serif); font-size: 22px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.sanh-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.sanh-card {
+  --a: #d9a441; --a-soft: rgba(217, 164, 65, 0.16); --a-line: rgba(217, 164, 65, 0.5);
+  position: relative; display: grid; align-content: start;
+  grid-template-columns: 48px minmax(0, 1fr) 12px;
+  grid-template-areas: "ic body go" "st st st";
+  column-gap: 12px; row-gap: 10px; align-items: start;
+  min-height: 118px; padding: 12px 12px 12px 15px; margin: 0;
+  color: #e8ddc7; text-align: left; cursor: pointer;
+  background: linear-gradient(160deg, rgba(66, 52, 39, 0.97), rgba(40, 31, 22, 0.99));
+  border: 1px solid rgba(188, 151, 91, 0.34); border-radius: 8px;
+  box-shadow: inset 4px 0 0 var(--a), 0 3px 8px rgba(0, 0, 0, 0.28);
+  -webkit-tap-highlight-color: transparent;
+}
+.sanh-card[data-k="daihoi"]   { --a: #e0a94a; --a-soft: rgba(224, 169, 74, 0.17); --a-line: rgba(224, 169, 74, 0.55); }
+.sanh-card[data-k="tantu"]    { --a: #6fbf8d; --a-soft: rgba(111, 191, 141, 0.16); --a-line: rgba(111, 191, 141, 0.5); }
+.sanh-card[data-k="vanhoang"] { --a: #ee7d46; --a-soft: rgba(238, 125, 70, 0.17);  --a-line: rgba(238, 125, 70, 0.55); }
+.sanh-card[data-k="tamlo"]    { --a: #5eaeff; --a-soft: rgba(94, 174, 255, 0.16);  --a-line: rgba(94, 174, 255, 0.5); }
+.sanh-card:hover { border-color: var(--a-line); background: linear-gradient(160deg, rgba(79, 62, 46, 0.98), rgba(47, 36, 26, 0.99)); }
+.sanh-card:active { transform: scale(0.988); }
+.sanh-card:focus-visible { outline: 2px solid #f1d47f; outline-offset: 2px; }
+.sanh-card.is-nv { border-color: rgba(240, 208, 138, 0.75); box-shadow: inset 4px 0 0 var(--a), 0 0 0 1px rgba(240, 208, 138, 0.3), 0 0 16px rgba(240, 208, 138, 0.16); }
+.sanh-ic {
+  grid-area: ic; display: flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; color: var(--a);
+  background: var(--a-soft); border: 1px solid var(--a-line); border-radius: 11px;
+}
+.sanh-ic svg { width: 28px; height: 28px; display: block; }
+.sanh-body { grid-area: body; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.sanh-tt { color: #f5e8c9; font-family: var(--font-serif); font-size: 16px; font-weight: 700; line-height: 1.2; letter-spacing: 0.01em; }
+.sanh-ds { color: #d3c6a8; font-size: 12.5px; line-height: 1.4; }
+.sanh-meta { color: #a99d82; font-size: 11px; line-height: 1.35; }
+.sanh-go { grid-area: go; align-self: center; color: var(--a); font-size: 22px; line-height: 1; opacity: 0.85; text-align: right; }
+.sanh-foot { grid-area: st; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.sanh-st {
+  display: inline-flex; align-items: center; gap: 7px; max-width: 100%; padding: 4px 10px;
+  color: #cfc6b4; background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(188, 151, 91, 0.3); border-radius: 999px;
+  font-size: 12px; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums;
+}
+.sanh-st i { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #8f8670; }
+.sanh-st b { min-width: 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sanh-st.tone-open { color: #d8f0d2; background: rgba(79, 140, 90, 0.26); border-color: #6f8f67; }
+.sanh-st.tone-open i { background: #7fd68a; box-shadow: 0 0 0 0 rgba(127, 214, 138, 0.6); animation: sanh-nhip 1.8s ease-out infinite; }
+.sanh-st.tone-soon { color: #f6dc9a; background: rgba(201, 164, 92, 0.16); border-color: #b8933f; }
+.sanh-st.tone-soon i { background: #e8b94a; }
+.sanh-st.tone-live { color: #ffd5cc; background: rgba(163, 69, 59, 0.3); border-color: #a3453b; }
+.sanh-st.tone-live i { background: #ff6a55; box-shadow: 0 0 0 0 rgba(255, 106, 85, 0.6); animation: sanh-nhip 1.4s ease-out infinite; }
+@keyframes sanh-nhip {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+  100% { box-shadow: 0 0 0 7px rgba(255, 255, 255, 0); }
+}
+.sanh-nv {
+  padding: 3px 8px; color: #3a2a0c; background: linear-gradient(#f4dd96, #d9b655);
+  border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 0.03em; line-height: 1.2;
+}
+@media (max-width: 560px) {
+  .sanh-grid { grid-template-columns: 1fr; gap: 8px; }
+  .sanh-card { min-height: 0; }
+}
+@media (orientation: landscape) and (max-height: 520px) {
+  #chiensanh .sanh-panel { padding: 10px 12px 10px; }
+  .sanh-head { padding-bottom: 8px; }
+  .sanh-head h2 { font-size: 18px; }
+  .sanh-now b { font-size: 18px; }
+  .sanh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
+  .sanh-card { min-height: 0; row-gap: 6px; padding: 8px 10px 8px 12px; grid-template-columns: 40px minmax(0, 1fr) 10px; column-gap: 9px; }
+  .sanh-ic { width: 40px; height: 40px; }
+  .sanh-ic svg { width: 24px; height: 24px; }
+  .sanh-tt { font-size: 14px; }
+  .sanh-ds { font-size: 11.5px; }
+  .sanh-meta { display: none; }
+  .sanh-st { padding: 2px 8px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sanh-st.tone-open i, .sanh-st.tone-live i { animation: none; }
+}
+.dh-tabs { display: flex; gap: 4px; margin: -4px 0 12px; }
+.dh-tabs button {
+  flex: 1; padding: 7px 4px; color: #d9c79d; cursor: pointer;
+  font: 700 13px/1.1 var(--font-ui, sans-serif);
+  background: rgba(28, 19, 12, 0.7); border: 1px solid rgba(140, 112, 69, 0.6); border-radius: 6px;
+}
+.dh-tabs button:hover { background: rgba(60, 44, 26, 0.85); }
+.dh-tabs button.on { color: #2c2113; background: linear-gradient(#e8d9b3, #cdb98e); border-color: #b4965a; }
+#daihoi section.hidden { display: none; }
+#daihoi .dh-kq, #daihoi .dh-diem { text-align: left; }
+.dh-tom {
+  margin: 0 0 8px; padding: 8px 10px; color: #fff0ca; font-size: 13px; line-height: 1.4;
+  background: rgba(47, 74, 58, 0.55); border-radius: 6px;
+}
+.dh-tom b { color: #f6dc9a; font-variant-numeric: tabular-nums; }
+.dh-ghi { margin: 8px 2px 0; color: #b5a98f; font-size: 12px; line-height: 1.45; }
+.dh-kq { display: flex; flex-direction: column; gap: 8px; }
+.dh-kq-the {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; align-items: center;
+  padding: 10px 12px; background: #30261d; border: 1px solid #65523a; border-radius: 8px;
+}
+.dh-kq-the h3 { margin: 0; color: #f0dfba; font-family: var(--font-serif); font-size: 15px; line-height: 1.2; }
+.dh-kq-ky {
+  justify-self: end; padding: 2px 8px; color: #cfc6b4; font-size: 11px; line-height: 1.3;
+  background: rgba(255, 255, 255, 0.06); border-radius: 999px;
+}
+.dh-kq-ky.truoc { color: #f6dc9a; background: rgba(201, 164, 92, 0.16); }
+.dh-kq-dong { grid-column: 1 / -1; color: #d3c6a8; font-size: 13px; line-height: 1.4; }
+.dh-kq-dong.vd { color: #f6dc9a; font-weight: 600; }
+.dh-kq-dong.vd::before { content: '♛ '; }
+#daihoi .dh-kq-xem {
+  grid-column: 1 / -1; width: 100%; margin: 6px 0 0; padding: 8px 10px;
+}
+.dh-quay { display: flex; flex-direction: column; }
+.dh-mon { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid rgba(140, 112, 69, 0.28); }
+.dh-mon:last-of-type { border-bottom: 0; }
+.dh-mon canvas { flex: none; width: 36px; height: 36px; image-rendering: pixelated; }
+.dh-mon-ten { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; text-align: left; }
+.dh-mon-ten b { color: #f0e3ca; font-size: 14px; font-weight: 600; }
+.dh-mon-ten small { color: #b5a98f; font-size: 11.5px; line-height: 1.35; }
+#daihoi .dh-mon .btn-sub { flex: none; width: auto; min-width: 54px; margin: 0; padding: 7px 11px; }
+#daihoi .dh-mon .btn-sub[disabled] { opacity: 0.45; cursor: default; }
+#daihoi .dh-tab-loi { margin: 8px 0 0; }

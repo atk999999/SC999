@@ -1,0 +1,13 @@
+TuTien2D React AI Studio — Packing & Verification Report
+========================================================
+Total source files: 967 (strictly below the 1,000-file Google AI Studio limit)
+HTML local references checked: 63 (missing: 0)
+Asset manifest status: 892 physical images + 887 automatic .png/.webp aliases (0 HTTP 404s)
+Offline gameplay tables configured:
+  - window.PNTT.LootRates (full monster, boss, ore, talisman, and spirit stone drop rates)
+  - window.PNTT.GachaRates.thuong_pham (40 high-tier skill book weights)
+  - window.PNTT.MO_KHOA (khucBon: true, huThien: true)
+npm scripts verified:
+  - npm run check   : PASS (exit code 0)
+  - npm run build   : PASS (exit code 0)
+  - npm run dev     : PASS (verified in headless Chromium with 0 console/network errors)
