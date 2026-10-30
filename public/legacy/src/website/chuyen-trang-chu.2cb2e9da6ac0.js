@@ -1,1 +1,0 @@
-!function(){var n=String(location.hostname||"").toLowerCase();"thienthuonline.vn"!==n&&"www.thienthuonline.vn"!==n?/(?:^|[?&])choi(?:[=&]|$)/.test(location.search||"")||window.Capacitor||"tutien2d.online"!==n&&"www.tutien2d.online"!==n&&"tutien2d.com"!==n&&"www.tutien2d.com"!==n||location.replace("/trang-chu.html"):location.replace("/tai-game")}();
